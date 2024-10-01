@@ -1,0 +1,15 @@
+Class: Recipe
+
+The Recipe class organizes culinary creations based on the type of meal or course. Its subclasses include:
+
+- Breakfast: (e.g. Pancakes, MilkAndCerial)
+
+- Lunch: (e.g. Sushi, PizzaMargherita)
+
+- Dinner: (e.g. Carbonara, ChickenCurryWithRice)
+
+- Dessert: (e.g. CarrotCake, ChocolateCake)
+
+- Salad: (e.g. Ceasars, GreekSalad)
+
+This classification allows for easy retrieval and association of recipes based on meal timing or type, aiding in meal planning and dietary analysis within the ontology.

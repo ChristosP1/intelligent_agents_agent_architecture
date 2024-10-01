@@ -1,0 +1,11 @@
+Class: Animals
+
+The Animals class provides a comprehensive framework for categorizing animal life within the ontology. It is systematically divided into major biological groups to reflect the diversity of the animal kingdom. The primary subclasses include Amphibians, Birds, Fish, Mammals, and Reptiles.
+
+- Amphibians are further subdivided into FrogsAndToads and Salamanders, capturing the main orders within this group.
+
+- Birds are classified into Domesticated (such as parrots and Sparrows) and WildBirds (like penguins and seagulls), distinguishing species based on their relationship with humans.
+
+- Mammals encompass subclasses like Humans, Livestock (e.g., cows, sheep), Predators (such as wolves and bears), and WildAnimals, highlighting the ecological roles and domestication status.
+
+- Reptiles include Crocodilians, Lizards, Snakes, and TurtlesAndTortoises, representing the major reptilian orders.

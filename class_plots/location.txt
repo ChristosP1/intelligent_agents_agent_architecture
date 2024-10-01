@@ -1,0 +1,13 @@
+Class: Location
+
+The Location class categorizes geographical entities to provide spatial context within the ontology. It is divided into Countries and Geography.
+
+Geography is further subdivided into Biomes, Land, and Water.
+
+- Biomes include Aquatic and Terrestrial, representing major ecological zones.
+
+- Land comprises Continents, Islands, and MountainRanges, detailing significant landforms.
+
+- Water encompasses Ocean, River, and Sea, covering various bodies of water.
+
+By structuring locations in this way, the ontology can effectively link other classes (like animals or recipes) to specific places, enhancing environmental and cultural associations.

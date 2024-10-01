@@ -1,0 +1,18 @@
+Class: Sport
+
+The Sport class categorizes physical activities based on the nature of participant interaction and physical demands. It is divided into ContactSport and NonContactSport.
+
+ContactSport is further split into:
+- SpeedBasedContactSport: Sports where speed is crucial, and physical contact occurs (e.g., rugby).
+- StrengthBasedContactSport: Sports emphasizing strength with physical contact (e.g., wrestling).
+
+NonContactSport is divided into:
+1. Repetitive: Activities involving repeated movements.
+- SpeedBasedRepetitive: Emphasizing speed (e.g., running).
+- StrengthBasedRepetitive: Emphasizing strength (e.g., weightlifting).
+
+2. NonRepetitive: Activities with varied movements.
+- SpeedBasedNonRepetitive: Speed-focused but varied (e.g., running).
+- StrengthBasedNonRepetitive: Strength-focused with varied movements (e.g., rock climbing).
+
+This detailed classification supports nuanced understanding and reasoning about sports, their physical requirements, and potential health implications within the ontology.

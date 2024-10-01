@@ -1,0 +1,22 @@
+Class: Health
+
+The Health class is an extensive category within the ontology that encapsulates various facets of medical and health-related concepts. It is designed to provide a detailed representation of health information, making it the largest and one of the most intricate classes in the ontology. The primary subclasses under Health are MedicalCondition, Symptom, and Treatment, each addressing a fundamental aspect of healthcare.
+
+1. MedicalCondition encompasses conditions affecting an individual's health and is further subdivided into Allergy, Deficiency, Disease, and Injury.
+
+- Allergy is split into DrugAllergy and FoodAllergy, representing hypersensitive responses to medications and certain foods, respectively.
+
+- Disease is categorized into Chronic and Infectious diseases.
+Chronic diseases are long-term conditions and are further classified into Cardiovascular (e.g., heart disease) and Respiratory (e.g., asthma) diseases.
+
+2. Symptom covers the signs and indications of medical conditions, with subclasses including Fatigue, Pain, Psychological, and SkinSymptom.
+- Fatigue is divided into Mental and Physical, distinguishing between cognitive exhaustion and bodily tiredness.
+
+- Pain includes HeadAche and MuscleAche, focusing on common types of discomfort.
+
+- Psychological symptoms encompass AnxietyDisorder and MoodDisorder, highlighting mental health issues such as anxiety and depression.
+
+3. Treatment addresses the methods and interventions used to manage health conditions, subdivided into Medication, Surgery, and Therapy.
+- Medication is classified into OverTheCounter and Prescription drugs, differentiating based on whether a medical prescription is required.
+- Surgery is split into MajorSurgery and MinorSurgery, indicating the complexity and extent of surgical procedures.
+- Therapy includes PhysicalTherapy and Psychotherapy, representing treatments aimed at physical rehabilitation and mental health support.

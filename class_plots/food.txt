@@ -1,0 +1,13 @@
+Class: Food
+
+The Food class encompasses all edible items and is organized into several key subclasses to reflect different food categories:
+
+- Dairy (e.g., milk, cheese)
+- Grain (e.g., rice, oats)
+- Liquid (e.g., water, oil)
+- Meat (e.g., beef, chicken)
+- Nutrient: Further divided into Additives, Carbs, Fats, and Vitamins, allowing for detailed nutritional information.
+- Pasta (e.g., spaghetti, macaroni)
+- Seafood (e.g., fish, shrimp)
+- Sweets (e.g., sugar, chocolate)
+- VegetableOrFruit (e.g., carrots, apples)

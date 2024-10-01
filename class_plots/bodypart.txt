@@ -1,0 +1,11 @@
+Class: BodyPart
+
+The BodyPart class organizes anatomical components into a structured hierarchy based on major regions of the body. The main subclasses are Arms, Core, Head, and Legs, each representing a distinct body area.
+
+- Arms are broken down into ArmBones, ArmMuscles, and ArmTendons, detailing the skeletal, muscular, and connective tissues involved in arm function.
+
+- Core includes CoreBones, CoreMuscles, and CoreOrgans, encompassing the central structures like the spine, abdominal muscles (abs), and vital organs.
+
+- Head is subdivided into HeadBones and HeadOrgans, covering cranial bones and sensory organs such as the brain and eyes.
+
+- Legs consist of LegBones, LegMuscles, and LegsTendons, focusing on the components essential for locomotion.
