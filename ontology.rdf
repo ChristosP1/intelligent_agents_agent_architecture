@@ -76,6 +76,12 @@
     
 
 
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation"/>
+    
+
+
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinRecipe -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinRecipe"/>
@@ -85,17 +91,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinSport -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinSport"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#aggravatedBy -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#aggravatedBy">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>One symptom worsens another.</rdfs:comment>
-    </owl:ObjectProperty>
     
 
 
@@ -114,28 +109,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesInjury">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesPain -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesPain">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Pain"/>
-        <rdfs:comment>Specifies that a disease condition causes pain.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#developsFrom -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#developsFrom">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Deficiency"/>
-        <rdfs:comment>A disease can develop from a deficiency.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -173,24 +146,13 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSymptom -->
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSimilarEatingHabitsWith -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSymptom">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>Indicates symptoms associated with a health condition.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#indicativeOf -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#indicativeOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Psychological"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:comment>A  psychological symptom may suggest a medical condition.</rdfs:comment>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSimilarEatingHabitsWith">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
     </owl:ObjectProperty>
     
 
@@ -206,38 +168,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAllergicTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAllergicTo">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
-        <rdfs:comment>An allergy is triggered by a specific medication.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAlternativeTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAlternativeTo">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:comment>One treatment is an alternative to another.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isCharacteristicOf -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isCharacteristicOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isDishType -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isDishType">
@@ -247,14 +177,13 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isFollowedBy -->
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isGeographicalPartOf -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isFollowedBy">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Surgery"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Therapy"/>
-        <rdfs:comment>A surgery is followed by a medication or a therapy.</rdfs:comment>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isGeographicalPartOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
     </owl:ObjectProperty>
     
 
@@ -275,17 +204,6 @@
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Countries"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isSideEffectOf -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isSideEffectOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
-        <rdfs:comment>A symptom is a side effect of a medication.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -311,6 +229,16 @@
     
 
 
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTheMainIngredientOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTheMainIngredientOf">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTrainedByExercise -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTrainedByExercise">
@@ -320,13 +248,13 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatedBy -->
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatydBy -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatedBy">
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatydBy">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:comment>Indicates that a medical condition is treated by a specific treatment.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -341,45 +269,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#managedBy -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#managedBy">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Chronic"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:comment>Indicates that a chronic condition is managed by ongoing treatments.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#mayCauseSideEffect -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#mayCauseSideEffect">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>A medication may cause a symptom as a side effect.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#occursWith -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#occursWith">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>Two symptoms commonly occur together.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#originatesFrom -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#originatesFrom">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
     </owl:ObjectProperty>
     
@@ -396,54 +290,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reduces -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reduces">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>A treatment reduces the severity of a symptom.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reducesDeficiency -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reducesDeficiency">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#relievedBy -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#relievedBy">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#requiresTreatment -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#requiresTreatment">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:comment>A symptom necessitates a particular treatment.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#resultsIn -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#resultsIn">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
-        <rdfs:comment>Specifies that an allergy results in certain symptoms.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -456,28 +307,6 @@
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ArmsMuscles"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoreMuscles"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#LegsMuscles"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#treatsCondition -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#treatsCondition">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:comment>Specifies that a treatment is used to treat a medical condition.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#triggers -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#triggers">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SkinSymptom"/>
-        <rdfs:comment>Specifies that an allergy triggers certain skin symptoms.</rdfs:comment>
     </owl:ObjectProperty>
     
 
@@ -506,6 +335,12 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
+    
+
+
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod"/>
     
 
 
@@ -657,17 +492,8 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRecoveryTime">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Autoimmune"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cardiovascular"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Chronic"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DrugAllergy"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#HormoneDeficiency"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminDeficiency"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Typical recovery time from a health condition (days).</rdfs:comment>
     </owl:DatatypeProperty>
@@ -678,19 +504,19 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRiskLevel">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Autoimmune"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cardiovascular"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Chronic"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DrugAllergy"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#HormoneDeficiency"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminDeficiency"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment>&quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isHealthyCookingMethod -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isHealthyCookingMethod">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
     
 
@@ -981,7 +807,8 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Deficiency"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Chronic"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
     </owl:Class>
     
 
@@ -1677,7 +1504,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">350</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -1713,8 +1540,9 @@
         <owl:differentFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AmericanCrocodile"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#China"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">45</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -1740,8 +1568,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AmericanCrocodile">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Crocodilians"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nile"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -1750,8 +1580,10 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Anaconda">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Snakes"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Amazon"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -1796,6 +1628,22 @@
     
 
 
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Antihistamine -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Antihistamine">
+        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#OverTheCounter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Anxiolytics -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Anxiolytics">
+        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Prescription"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ArcticOcean -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ArcticOcean">
@@ -1816,7 +1664,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Arthritis -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Arthritis">
-        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Autoimmune"/>
         <intelligent_agents_ontology:hasRiskLevel>Medium</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
     
@@ -1891,6 +1738,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Baked">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
+        <intelligent_agents_ontology:isHealthyCookingMethod rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isHealthyCookingMethod>
     </owl:NamedIndividual>
     
 
@@ -1901,6 +1749,8 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predators"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Canada"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mountain"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -1936,17 +1786,13 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BlueWhale -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BlueWhale"/>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Boar -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Boar">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Europe"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -1956,6 +1802,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Boiled">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
+        <intelligent_agents_ontology:isHealthyCookingMethod rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isHealthyCookingMethod>
     </owl:NamedIndividual>
     
 
@@ -1980,7 +1827,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -2006,19 +1853,12 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Breakfast -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Breakfast"/>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Calamari -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Calamari">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Seafood"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#UnsaturatedFats"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB12"/>
-        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</intelligent_agents_ontology:hasAverageLifespan>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">175</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</intelligent_agents_ontology:hasFatContent>
         <intelligent_agents_ontology:hasProteinContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18</intelligent_agents_ontology:hasProteinContent>
@@ -2056,7 +1896,10 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CaneToad">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FrogsAndToads"/>
+        <intelligent_agents_ontology:hasSimilarEatingHabitsWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#GlassFrog"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Oceania"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Savanna"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -2066,6 +1909,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Capybara">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Amazon"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2077,6 +1923,7 @@
         <intelligent_agents_ontology:hasIngredient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Bacon"/>
         <intelligent_agents_ontology:hasIngredient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Milk"/>
         <intelligent_agents_ontology:hasIngredient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Spaghetti"/>
+        <intelligent_agents_ontology:originatesFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Italy"/>
     </owl:NamedIndividual>
     
 
@@ -2131,6 +1978,7 @@
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Carbs"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sugar"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB12"/>
+        <intelligent_agents_ontology:isTheMainIngredientOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MilkAndCereal"/>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">357</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:hasFatContent>
         <intelligent_agents_ontology:hasProteinContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8</intelligent_agents_ontology:hasProteinContent>
@@ -2180,7 +2028,6 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Meat"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#UnsaturatedFats"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB12"/>
-        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7</intelligent_agents_ontology:hasAverageLifespan>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">239</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14</intelligent_agents_ontology:hasFatContent>
         <intelligent_agents_ontology:hasProteinContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">27</intelligent_agents_ontology:hasProteinContent>
@@ -2214,6 +2061,7 @@
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Carbs"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SaturatedFats"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sugar"/>
+        <intelligent_agents_ontology:isTheMainIngredientOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ChocolateCake"/>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">564</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">31</intelligent_agents_ontology:hasFatContent>
         <intelligent_agents_ontology:hasProteinContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5</intelligent_agents_ontology:hasProteinContent>
@@ -2238,8 +2086,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cobra">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Snakes"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -2281,6 +2131,9 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cow">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Livestock"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Europe"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -2308,7 +2161,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">600</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -2319,6 +2172,8 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Canada"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Netherlands"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -2332,24 +2187,12 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Dessert -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Dessert"/>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Diabetes -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Diabetes">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Autoimmune"/>
         <intelligent_agents_ontology:hasRiskLevel>High</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Dinner -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Dinner"/>
     
 
 
@@ -2366,6 +2209,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Dolphin">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fish"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Atlantic"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Pacific"/>
     </owl:NamedIndividual>
     
 
@@ -2407,6 +2252,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Eric">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Humans"/>
+        <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Netherlands"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">84</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2482,7 +2329,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -2499,6 +2346,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fried">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
+        <intelligent_agents_ontology:isHealthyCookingMethod rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isHealthyCookingMethod>
     </owl:NamedIndividual>
     
 
@@ -2508,8 +2356,11 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Gecko">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Lizards"/>
         <owl:differentFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Iguana"/>
+        <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Desert"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">16</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -2518,6 +2369,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#GeneralizedAnxiety">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AnxietyDisorders"/>
+        <intelligent_agents_ontology:isTreatydBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Anxiolytics"/>
         <intelligent_agents_ontology:hasRecoveryTime rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90</intelligent_agents_ontology:hasRecoveryTime>
         <intelligent_agents_ontology:hasRiskLevel>Medium</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
@@ -2528,6 +2380,10 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#GlassFrog">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FrogsAndToads"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3</intelligent_agents_ontology:hasAverageLifespan>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -2597,6 +2453,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Himalayas">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MountainRanges"/>
+        <intelligent_agents_ontology:isGeographicalPartOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
     </owl:NamedIndividual>
     
 
@@ -2605,6 +2462,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hippopotamus">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predators"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Africa"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nile"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2646,8 +2506,10 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Iguana">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Lizards"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#China"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -2656,6 +2518,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Countries"/>
+        <intelligent_agents_ontology:isGeographicalPartOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
     </owl:NamedIndividual>
     
 
@@ -2686,6 +2549,14 @@
     
 
 
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Italy -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Italy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Countries"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Itching -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Itching">
@@ -2700,6 +2571,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Jaguar">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predators"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2716,6 +2590,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#John">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Humans"/>
+        <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">84</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2725,6 +2601,9 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Kangaroo">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Oceania"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Savanna"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2765,6 +2644,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Lemur">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Madagascar"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2787,12 +2669,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Lungs">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoreOrgans"/>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MAdagascar -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MAdagascar"/>
     
 
 
@@ -2831,6 +2707,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MajorDepressiveDisorder">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DepressiveDisorders"/>
+        <intelligent_agents_ontology:isTreatydBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Antidepressants"/>
         <intelligent_agents_ontology:hasRecoveryTime rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180</intelligent_agents_ontology:hasRecoveryTime>
         <intelligent_agents_ontology:hasRiskLevel>High</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
@@ -2841,6 +2718,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mary">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Humans"/>
+        <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">86</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -2865,6 +2744,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Migraine">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#HeadAche"/>
+        <intelligent_agents_ontology:isTreatydBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PainRelievers"/>
         <intelligent_agents_ontology:hasRecoveryTime rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2</intelligent_agents_ontology:hasRecoveryTime>
         <intelligent_agents_ontology:hasRiskLevel>Medium</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
@@ -2901,6 +2781,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Monkey">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Africa"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -2961,6 +2843,7 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Newts">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Salamanders"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Canada"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -2984,9 +2867,7 @@
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerican -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerican">
-        <owl:differentFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerican"/>
-    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerican"/>
     
 
 
@@ -3037,9 +2918,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Ocenia -->
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Oceania -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Ocenia">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Oceania">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Continents"/>
     </owl:NamedIndividual>
     
@@ -3109,6 +2990,9 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Panda">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#China"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Himalayas"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -3117,6 +3001,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PanicDisorder">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AnxietyDisorders"/>
+        <intelligent_agents_ontology:isTreatydBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tranquilizers"/>
         <intelligent_agents_ontology:hasRecoveryTime rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasRecoveryTime>
         <intelligent_agents_ontology:hasRiskLevel>Medium</intelligent_agents_ontology:hasRiskLevel>
     </owl:NamedIndividual>
@@ -3128,6 +3013,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Parrot">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Domesticated"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mountain"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3145,6 +3032,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Penguin">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildBirds"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Antarctica"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -3246,7 +3135,10 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Snakes"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#China"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#India"/>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TropicalRainforest"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -3285,6 +3177,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#RedSalamander">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Salamanders"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mountain"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3322,14 +3216,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#RiverSnake -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#RiverSnake">
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isVenomous>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#RockClimbing -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#RockClimbing">
@@ -3342,7 +3228,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -3361,7 +3247,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">80</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -3378,7 +3264,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -3390,7 +3276,6 @@
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#UnsaturatedFats"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB12"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminD"/>
-        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:hasAverageLifespan>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">208</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13</intelligent_agents_ontology:hasFatContent>
         <intelligent_agents_ontology:hasProteinContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20</intelligent_agents_ontology:hasProteinContent>
@@ -3410,7 +3295,10 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SandBoa">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Snakes"/>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Asia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Desert"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6</intelligent_agents_ontology:hasAverageLifespan>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -3435,8 +3323,10 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SeaTurtle">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TurtlesAndTortoises"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoralReef"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#IndianOcean"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
     </owl:NamedIndividual>
     
 
@@ -3447,6 +3337,8 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildBirds"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Canada"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Netherlands"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Atlantic"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthSea"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">12</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3456,6 +3348,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Seahorse">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fish"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoralReef"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#IndianOcean"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -3465,6 +3360,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Shark">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fish"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoralReef"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Pacific"/>
     </owl:NamedIndividual>
     
 
@@ -3473,6 +3370,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sheep">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Livestock"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Europe"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mountain"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3494,6 +3393,9 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Seafood"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#UnsaturatedFats"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB12"/>
+        <intelligent_agents_ontology:hasSimilarEatingHabitsWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Seahorse"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoralReef"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#OceanBiome"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:hasAverageLifespan>
         <intelligent_agents_ontology:hasCalorieCount rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">99</intelligent_agents_ontology:hasCalorieCount>
         <intelligent_agents_ontology:hasFatContent rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:hasFatContent>
@@ -3507,12 +3409,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerica">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Continents"/>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerican -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#SouthAmerican"/>
     
 
 
@@ -3534,6 +3430,8 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Domesticated"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#China"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Netherlands"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Europe"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3588,6 +3486,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TasmanianDevil">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammals"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Australia"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Oceania"/>
+        <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
 
@@ -3630,8 +3530,18 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tortoise">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#TurtlesAndTortoises"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Desert"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Savanna"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90</intelligent_agents_ontology:hasAverageLifespan>
-        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isVenomous>
+        <intelligent_agents_ontology:isVenomous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isVenomous>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tranquilizers -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tranquilizers">
+        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Prescription"/>
     </owl:NamedIndividual>
     
 
@@ -3657,12 +3567,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#USA">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Countries"/>
     </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Unsaturated -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Unsaturated"/>
     
 
 
@@ -3767,7 +3671,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -3795,7 +3699,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 
@@ -3805,6 +3709,8 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Wolf">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predators"/>
         <intelligent_agents_ontology:isLocatedIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Canada"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Europe"/>
+        <intelligent_agents_ontology:livesInEnvironment rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#NorthAmerica"/>
         <intelligent_agents_ontology:hasAverageLifespan rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9</intelligent_agents_ontology:hasAverageLifespan>
     </owl:NamedIndividual>
     
@@ -3828,7 +3734,7 @@
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">500</intelligent_agents_ontology:caloriesBurnedPerHour>
         <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
-        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0</intelligent_agents_ontology:isTeamSport>
+        <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
     </owl:NamedIndividual>
     
 

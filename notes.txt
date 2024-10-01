@@ -1,0 +1,38 @@
+### Transitive Object Properties:
+A transitive object property is a property where if an individual A is related to an individual B via this property, and B is related to an individual C via the same property, then A is also related to C via this property.
+
+Example: isGeographicalPartOf (Domain "Location", Ranges "Location")
+Himalayas isGeographicalPartOf India
+India isGeographicalPartOf Asia
+
+So:
+Himalayas isGeographicalPartOf Asia 
+
+
+### Symmetric Object Properties
+A symmetric object property is a property where if an individual A is related to an individual B via this property, then B is also related to A via the same property.
+
+Example: hasSimilarEatingHabitsWith (Domain "Animal", Ranges "Animal")
+Penguin hasSimilarEatingHabitsWith Seagull
+
+
+### Functional Object Properties
+A functional object property is a property where any individual can be related to at most one individual via this property.
+
+Example: originatesFrom (Domains "Recipe", Ranges "Location"
+Carbonara originatesFrom Italy
+
+
+### Inverse Functional Object Property
+An inverse functional object property is a property where any individual can be the target of the property from at most one individual. 
+
+Example: isTheMainIngredientOf (Domain "Food", Ranges "Recipe")
+Chocolate isTheMainIngredientOf ChocolateCake
+
+### Inverse Object Properties
+
+1. hasIngredient (Domain "Recipe", Ranges "Food") and isIngredientOf (Domain "Food", Ranges "Recipe")
+
+Example:
+Spaghetti isIngredientOf Carbonara
+Carbonara hasIngredient Spaghetti
