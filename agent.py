@@ -4,18 +4,34 @@
 # simulations. The former might be of use here though.
 from typing import List
 
+class Prompt:
+    """Used to wrap a prompt given to the environment, to be processed by an agent."""
+    def __init__(self, prompt: str):
+        pass
+
+class Source:
+    """Used to wrap a source given to the environment, to be processed by an agent."""
+    def __init__(self, information: str):
+        pass
+
 class Env:
     """Contains all information in the environment."""
-    def __init__(self, prompt: str, sources: List[str]):
+    def __init__(self):
         self.agents = []
-        self.prompt = prompt
-        self.sources = sources
+        self.prompts = []
+        self.sources = []
 
     def step(self):
         for a in self.agents:
             a.perceive()
             a.reason()
             a.act()
+    
+    def get_agents(self):
+        return self.agents
+    
+    def add_agent(self, a):
+        self.agents.append(a)
 
 class Agent:
     """Contains all information related to individual agents."""
@@ -31,3 +47,6 @@ class Agent:
 
     def act(self):
         pass
+
+    def __str__(self):
+        return "AGENT \n - ID: {}".format(self.id)
