@@ -2,10 +2,13 @@
 import nltk
 import string
 from nltk.util import ngrams
+from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import TweetTokenizer
 from typing import List
 
 nltk.download('punkt_tab')
+nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
 
 # query_db = ["Are frogs dangerous?", "Can sharks be found on land?", "Are frogs not dangerous?"]
@@ -22,7 +25,8 @@ def tokenize_prompt(sentence: str):
     Returns:
         filtered_words (List[str]): A list of the words of the original
     """
-    word_tokens = word_tokenize(sentence)
+    tokenizer = TweetTokenizer(preserve_case=False)  # TweetTokenizer to preserve contractions
+    word_tokens = tokenizer.tokenize(sentence)
     
     return word_tokens
 
@@ -41,6 +45,22 @@ def remove_punctuation(word_tokens: List[str]):
     filtered_words = [word for word in word_tokens if word not in punctuation]
     
     return filtered_words
+
+def remove_stopwords(word_tokens: List[str]):
+    stop_words = set(stopwords.words('english'))
+    keep_words = {"and", "or", "not", "no", "only", "every", "all", "any", "both", "each", 
+                  "nor", "few", "some", "at least", "at most", 
+                  "exactly", "sometimes", "if", "then", "all", "does", "doesn't", "do", "was", "were",
+                  "because", "until", "while", "of", "at", "by", "for", "with", "between", 
+                  "into", "during", "before", "after", "above", "below", "to", "from", "up",
+                  "down", "in", "out", "on", "off", "over", "under", "then", "most", "will",
+                  "oesn't", "had", "hadn't", "has", "hasn't", "are", "aren't", "can", "can't",
+                  "there", "is", "when", "why", "where", "how", "more", "most", "same", "just", 
+                  "didn't", "did", "have", "haven't", "might", "must", "need", "won't", "wouldn't"}
+
+    custom_stopwords = stop_words - keep_words
+
+    return [word for word in word_tokens if word not in custom_stopwords]
 
 
 def pos_tagging(words):
@@ -84,7 +104,9 @@ def preprocess_text(prompt: str) -> str:
     tokens = tokenize_prompt(substr_lower)
     # Step 2; remove punctuation from entire string.
     tokens_no_punct = remove_punctuation(tokens)
+    # Step 2; remove some stopwords.
+    tokens_remove_stop = remove_stopwords(tokens_no_punct)
     # Step 3; remove stopwords(?; some of these words we may need to keep for negations)
-    tokens_pos = pos_tagging(tokens_no_punct)
+    tokens_pos = pos_tagging(tokens_remove_stop)
     
-    return tokens_no_punct, tokens_pos
+    return tokens_remove_stop, tokens_pos

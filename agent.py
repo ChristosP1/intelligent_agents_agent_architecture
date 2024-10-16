@@ -93,7 +93,7 @@ class Agent:
         # ------------------------------------------ State 1------------------------------------------#
         if self.state == 1 and isinstance(self.prompt, Prompt):  # We have perceived a prompt.
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
-            self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.tokenized_prompt, 2)
+            self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
             self.state = 2
         # --------------------------------------------------------------------------------------------#
 
@@ -139,12 +139,12 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("Drinking water causes headaches")
+    test_prompt = Prompt("When I drink, , , water, it doesn't causes me headaches.")
     test_env.set_prompt(test_prompt)
 
-    # Instantiate an agent
+    # Create an agent
     test_agent = Agent(test_env)
 
-    # The agent should perceive the prompt and process it in State 1
-    test_agent.perceive()  # This should set the prompt in the agent
-    test_agent.reason()  # This should tokenize, tag, and generate synonyms
+    # The agent perceives the prompt and process it in State 1
+    test_agent.perceive() 
+    test_agent.reason()  
