@@ -2,7 +2,7 @@ from OWL_interface import OWLInterface
 import os
 
 def main():
-    ontology_path = "C:\\Users\\saski\\Documents\\GitHub\\intelligent_agents_agent_architecture\\ontology3.owl"
+    ontology_path = os.getcwd()+"\\ontology3.owl"
     owl_interface = OWLInterface(ontology_path)
 
     # Placeholder for now, should come from one of the other functions
