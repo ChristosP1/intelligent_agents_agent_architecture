@@ -2,12 +2,10 @@
 import nltk
 import string
 from nltk.util import ngrams
-from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from typing import List
 
 nltk.download('punkt_tab')
-nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
 
 # query_db = ["Are frogs dangerous?", "Can sharks be found on land?", "Are frogs not dangerous?"]
@@ -15,22 +13,32 @@ nltk.download('averaged_perceptron_tagger_eng')
 """Remember; queries usually involve selecting a domain first (MedicalConditions, Food, etc.) and
 then querying via a relationship. Quite limited but it will have to do for starters."""
 
-def remove_stopwords(tokens: List[str]):
+def tokenize_prompt(sentence: str):
     """
         This function receives a sentence and removes its stopwords and punctuation.  
     Args:
         tokens (List[str]): a list of tokens preprocessed by nltk.tokenize(str)
         
     Returns:
-        filtered_words (List[str]): A list of the words of the original sentence after the cleaning
+        filtered_words (List[str]): A list of the words of the original
     """
-    stop_words = set(stopwords.words('english'))
+    word_tokens = word_tokenize(sentence)
+    
+    return word_tokens
+
+
+def remove_punctuation(word_tokens: List[str]):
+    """
+    Receives a list of word tokens (str) and removes the ones that are punctuation
+
+    Args:
+        word_tokens (List[str]): A list with a splitted (tokenized) sentence
+
+    Returns:
+        filtered_words (List[str]): The input list but without the punctuation
+    """
     punctuation = set(string.punctuation)
-    # word_tokens = word_tokenize(sentence)
-    filtered_words = [word for word in tokens if word.lower() not in stop_words and word not in punctuation]
-    # TODO: Can later remove word.lower() as this should already be done in the process by this point.
-    # print(tokens)
-    # print(filtered_words)
+    filtered_words = [word for word in word_tokens if word not in punctuation]
     
     return filtered_words
 
@@ -62,12 +70,7 @@ def prompt_parser(tokens: List[str]) -> str:
     # Step 2: Determine relevant relationship
     return end_query
 
-def filter(pre: str, blacklist : list =[":",";",",",".","?","!"]):
-    new = ""
-    for char in pre:
-        if char not in blacklist:
-            new += char
-    return new
+
 
 def extract_negations(tokens: list) -> list:
     """Extracts negations from a tokenized prompt."""
@@ -76,10 +79,12 @@ def extract_negations(tokens: list) -> list:
 def preprocess_text(prompt: str) -> str:
     """Preprocesses a text for NLP usage."""
     # Step 0; lowercase the entire string
-    substr0 = prompt.lower()
-    # Step 1; remove punctuation from entire string.
-    substr1 = filter(substr0)
-    # Step 2; tokenize
-    tokens1 = nltk.tokenize(substr1)
+    substr_lower = prompt.lower()
+    # Step 1; Tokenize the sentence
+    tokens = tokenize_prompt(substr_lower)
+    # Step 2; remove punctuation from entire string.
+    tokens_no_punct = remove_punctuation(tokens)
     # Step 3; remove stopwords(?; some of these words we may need to keep for negations)
-    tokens2 = remove_stopwords(tokens1)
+    tokens_pos = pos_tagging(tokens_no_punct)
+    
+    return tokens_no_punct, tokens_pos
