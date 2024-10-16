@@ -47,3 +47,18 @@ def pos_tagging(words):
     
     return pos_tags
     
+
+# def filter(pre: str, blacklist : list =[":",";",",",".","?","!"]):
+#     new = ""
+#     for char in pre:
+#         if char not in blacklist:
+#             new += char
+#     return new
+
+
+# def preprocess_text_pipeline(prompt: str) -> str:
+#     """Preprocesses a text for NLP usage."""
+#     # Step 1; remove punctuation from entire string.
+#     substr1 = filter(prompt)
+#     # Step 2; Tokenize string
+#     substr2 = nltk.tokenize(substr1)
