@@ -3,14 +3,14 @@
 # to make agent simulations work, but it's more focused around getting metrics and spatial
 # simulations. The former might be of use here though.
 from typing import List, Dict
-
+import owlready2
 from llm_utils import initialize_llm, generate_synonyms
-from nlp import remo
+from nlp import preprocess_text
 
 class Prompt:
     """Used to wrap a prompt given to the environment, to be processed by an agent."""
     def __init__(self, prompt: str):
-        pass
+        self.text = prompt
 
 class Source:
     """Used to wrap a source given to the environment, to be processed by an agent."""
@@ -21,7 +21,7 @@ class Env:
     """Contains all information in the environment."""
     def __init__(self):
         self.agents = []
-        self.prompt = None
+        self.prompt = ""
         self.sources = []
 
     def step(self):
@@ -56,7 +56,13 @@ class Agent:
         
         self.env : Env = env
         self.prompt : Prompt = None
-        self.variedprompt : List[str] = []
+        
+        # ---------- State 1 ---------- #
+        self.tokenized_prompt : List[str] = []
+        self.pos_tags : List[tuple] = []
+        self.tokenized_prompt_with_synonyms : List[str] = []
+        # ----------------------------- #
+        
         self.source : Source = None
         self.sourceidx : int = 0
         self.removesource : bool = False  # Whether we need to remove the source we queried last
@@ -74,6 +80,7 @@ class Agent:
     def perceive(self):
         if self.state == 1:  # We are looking for a prompt -> Get a prompt from an user in the env.
             if self.env.prompt is not None:
+                print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
             if len(self.env.sources) > 0:
@@ -83,10 +90,14 @@ class Agent:
 
 
     def reason(self):
-        if self.state == 1:  # We have perceived a prompt.
-            if isinstance(self.prompt, Prompt):
-                self.variedprompt = generate_synonyms(self.llm, self.prompt, 2)  # TODO: Is this done properly?
-                self.state = 2
+        # ------------------------------------------ State 1------------------------------------------#
+        if self.state == 1 and isinstance(self.prompt, Prompt):  # We have perceived a prompt.
+            self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
+            self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.tokenized_prompt, 2)
+            self.state = 2
+        # --------------------------------------------------------------------------------------------#
+
+        
         elif self.state == 2:  # We are currently processing our ontology internally.
             # TODO: We need to get a DL query here for the ontology!
             # Use self.variedprompt?
@@ -123,3 +134,17 @@ class Agent:
 
     def __str__(self):
         return "AGENT \n - ID: {}".format(self.id)
+    
+
+if __name__=="__main__":
+    # Test step 1
+    test_env = Env()
+    test_prompt = Prompt("Drinking water causes headaches")
+    test_env.set_prompt(test_prompt)
+
+    # Instantiate an agent
+    test_agent = Agent(test_env)
+
+    # The agent should perceive the prompt and process it in State 1
+    test_agent.perceive()  # This should set the prompt in the agent
+    test_agent.reason()  # This should tokenize, tag, and generate synonyms
