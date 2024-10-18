@@ -22,70 +22,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation -->
-
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation"/>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesHealthCondition -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesHealthCondition">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
@@ -97,7 +36,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesInjury -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesInjury">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
         <rdfs:label>causesInjury</rdfs:label>
@@ -108,7 +46,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasAnimal -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasAnimal">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isLocatedIn"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Country"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
@@ -120,7 +57,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasIngredient -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasIngredient">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isIngredientOf"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
@@ -133,7 +69,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasNutrient -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasNutrient">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nutrient"/>
         <rdfs:label>hasNutrient</rdfs:label>
@@ -144,7 +79,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSimilarEatingHabitsWith -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSimilarEatingHabitsWith">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
@@ -156,7 +90,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAllergenicFor -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isAllergenicFor">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
         <rdfs:comment>Indicates that a food item can cause a specific allergy.</rdfs:comment>
@@ -168,7 +101,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isGeographicalPartOf -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isGeographicalPartOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
@@ -180,7 +112,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isIngredientOf -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isIngredientOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:label>isIngredientOf</rdfs:label>
@@ -191,7 +122,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isLocatedIn -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isLocatedIn">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Country"/>
         <rdfs:label>isLocatedIn</rdfs:label>
@@ -202,7 +132,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isSimilarFoodTo -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isSimilarFoodTo">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:comment>Relates food items that are similar based on certain characteristics like nutritional content or type.</rdfs:comment>
@@ -214,7 +143,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTheMainIngredientOf -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTheMainIngredientOf">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:label>isTheMainIngredientOf</rdfs:label>
@@ -225,7 +153,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTrainedByExercise -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTrainedByExercise">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart"/>
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#trainsBodyPart"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BodyPart"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
@@ -237,7 +164,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatydBy -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTreatydBy">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
@@ -249,7 +175,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#livesInEnvironment -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#livesInEnvironment">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Geography"/>
         <rdfs:label>livesInEnvironment</rdfs:label>
@@ -260,7 +185,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#originatesFrom -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#originatesFrom">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
         <rdfs:label>originatesFrom</rdfs:label>
@@ -271,7 +195,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#preyOn -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#preyOn">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predator"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Livestock"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WildMammal"/>
@@ -283,7 +206,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reducesDeficiency -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#reducesDeficiency">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Deficiency"/>
         <rdfs:label>reducedDeficiency</rdfs:label>
@@ -294,7 +216,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#trainsBodyPart -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#trainsBodyPart">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ArmMuscle"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CoreMuscle"/>
@@ -315,54 +236,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe"/>
-    
-
-
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#caloriesBurnedPerHour -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#caloriesBurnedPerHour">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Average calories per hour while playing a sport or doing an exercise.</rdfs:comment>
@@ -374,7 +250,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasAverageLifespan -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasAverageLifespan">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Average lifespan of an animal.</rdfs:comment>
@@ -386,7 +261,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCalorieCount -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCalorieCount">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Calories per 100 grams in kcal.</rdfs:comment>
@@ -398,7 +272,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCookingTime -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCookingTime">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Time a recipe needs to be completed.</rdfs:comment>
@@ -410,7 +283,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDifficultyLevel -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDifficultyLevel">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment>Difficulty of a recipe: &quot;Easy&quot;, &quot;Intermediate&quot;, &quot;Hard&quot;</rdfs:comment>
@@ -422,7 +294,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDuration -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDuration">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Common duration of a sport or exercise.</rdfs:comment>
@@ -434,7 +305,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasFatContent -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasFatContent">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Fat per 100 grams.</rdfs:comment>
@@ -446,7 +316,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasHeartRateIncrease -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasHeartRateIncrease">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
         <rdfs:comment>Average increase in heart rate during the sport (beats per minute).</rdfs:comment>
@@ -458,7 +327,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasPopulation -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasPopulation">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Country"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Population of a country.</rdfs:comment>
@@ -470,7 +338,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasProteinContent -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasProteinContent">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Protein per 100 grams.</rdfs:comment>
@@ -482,7 +349,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRecoveryTime -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRecoveryTime">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
@@ -495,7 +361,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRiskLevel -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRiskLevel">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
         <rdfs:comment>&quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;</rdfs:comment>
@@ -507,7 +372,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isHealthyCookingMethod -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isHealthyCookingMethod">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <rdfs:label>isHealthyCookingMethod</rdfs:label>
@@ -518,7 +382,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTeamSport -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isTeamSport">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <rdfs:label>isTeamSport</rdfs:label>
@@ -529,7 +392,6 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isVenomous -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isVenomous">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Reptile"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <rdfs:label>isVenomous</rdfs:label>
