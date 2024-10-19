@@ -9,10 +9,10 @@ from langchain_core.output_parsers import StrOutputParser
 from kor.extraction import create_extraction_chain
 
 # PROMPTS #
-from prompt_templates.internal_util_prompts import(
+from prompt_templates.internal_prompts import(
                                                     synonyms_prompt_template,
                                                     synonyms_schema
-                                                    )
+                                                )
 
 def initialize_llm():
     """
@@ -38,7 +38,7 @@ def initialize_llm():
     return llm, output_parser
 
 
-def generate_synonyms(llm, words, synonyms_num=7):
+def generate_synonyms(llm, pos_tagged_words, synonyms_num=3):
     """
         A function that takes an llm and a list of words and generates 2 synonyms for each word
     Args:
@@ -49,21 +49,37 @@ def generate_synonyms(llm, words, synonyms_num=7):
         cleaned_output (dict): A dictionary where each key is a word from the initial list and each value is a list with N synonyms
     """
     
+    # Filter words that are nouns, adjectives, or verbs
+    filtered_words = [word for word, pos in pos_tagged_words if pos.startswith(('NN', 'JJ', 'VB'))]
+
+    final_prompt = synonyms_prompt_template.format(words=", ".join(filtered_words), synonyms_num=synonyms_num)
+    
     extraction_chain = create_extraction_chain(
-            llm,  # Replace with the LLM instance you're using
+            llm, 
             synonyms_schema,
             encoder_or_encoder_class="json"
         )
-    
-    final_prompt = synonyms_prompt_template.format(words=", ".join(words), synonyms_num=synonyms_num)
 
     # Proceed with extraction only if the response isn't empty
     structured_output = extraction_chain.invoke(final_prompt)['data']
-    print("Structured output:", structured_output)
     
     cleaned_output = {}
     for entry in structured_output['synonyms']:
         cleaned_output.update(entry)  # Combine all dictionaries into one
     
-    print("Cleaned structured output:", cleaned_output)
-    return cleaned_output
+    
+    output_list = []
+
+    for word, pos in pos_tagged_words:
+        output_list.append(word)  # Add original word to the output list
+        if word in cleaned_output and isinstance(cleaned_output[word], list):
+            for synonym in cleaned_output[word]:
+                if isinstance(synonym, str):
+                    if " " in synonym:  # Handle synonyms with spaces
+                        synonym = synonym.replace(" ", "")
+                    output_list.append(synonym)  # Add synonym to the output list
+                    
+
+  
+    print(f"List with synonyms: {output_list}")
+    return output_list
