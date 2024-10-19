@@ -2,10 +2,13 @@
 # TODO: Alternatively we can use Mesa which was mentioned in the slides. I used this before
 # to make agent simulations work, but it's more focused around getting metrics and spatial
 # simulations. The former might be of use here though.
-from typing import List, Dict
+from typing import List, Dict, Union
 import owlready2
+
+# Files
 from llm_utils import initialize_llm, generate_synonyms
 from nlp import preprocess_text
+from owl_utils import find_ontology_entities, find_relevant_ontology_items
 
 class Prompt:
     """Used to wrap a prompt given to the environment, to be processed by an agent."""
@@ -61,6 +64,10 @@ class Agent:
         self.tokenized_prompt : List[str] = []
         self.pos_tags : List[tuple] = []
         self.tokenized_prompt_with_synonyms : List[str] = []
+        self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
+        self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
+        self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
+
         # ----------------------------- #
         
         self.source : Source = None
@@ -94,10 +101,13 @@ class Agent:
         if self.state == 1 and isinstance(self.prompt, Prompt):  # We have perceived a prompt.
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
+            self.ontology_elements = find_ontology_entities('ontology3.owl')
+            print(self.ontology_elements.keys())
+            self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.embeddings_path)
+            print(self.ontology_filtered)
             self.state = 2
         # --------------------------------------------------------------------------------------------#
 
-        
         elif self.state == 2:  # We are currently processing our ontology internally.
             # TODO: We need to get a DL query here for the ontology!
             # Use self.variedprompt?
@@ -139,7 +149,7 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("When I drink, , , water, it doesn't causes me headaches.")
+    test_prompt = Prompt("When I drink water it causes me headaches.")
     test_env.set_prompt(test_prompt)
 
     # Create an agent
