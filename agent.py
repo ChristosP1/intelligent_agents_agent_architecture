@@ -9,6 +9,9 @@ import owlready2
 from llm_utils import initialize_llm, generate_synonyms
 from nlp import preprocess_text
 from owl_utils import find_ontology_entities, find_relevant_ontology_items
+from reddit_utils import RedditAPI
+
+
 
 class Prompt:
     """Used to wrap a prompt given to the environment, to be processed by an agent."""
@@ -40,7 +43,7 @@ class Env:
         self.agents.append(a)
 
     def set_prompt(self, prompt: Prompt):
-        self.prompt = prompt
+        self.prompt = promptoutput_parser
 
     def add_source(self, source: Source):
         self.sources.append(source)
@@ -56,6 +59,8 @@ class Agent:
         llm, output_parser = initialize_llm()
         self.llm = llm
         self.output_parser = output_parser
+        
+        self.reddit_api = RedditAPI()
         
         self.env : Env = env
         self.prompt : Prompt = None
