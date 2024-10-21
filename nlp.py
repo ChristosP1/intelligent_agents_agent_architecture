@@ -2,6 +2,7 @@
 import nltk
 import string
 import math
+import os
 
 from nltk.util import ngrams
 from nltk.corpus import stopwords
@@ -13,6 +14,7 @@ nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('averaged_perceptron_tagger')
+os.system('cls')
 
 # query_db = ["Are frogs dangerous?", "Can sharks be found on land?", "Are frogs not dangerous?"]
 

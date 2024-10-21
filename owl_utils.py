@@ -5,6 +5,8 @@ from typing import Dict, List, Tuple, Union
 import numpy as np
 import pickle
 import os
+import Levenshtein
+
 
 # Initialize the HuggingFace embeddings model
 embeddings_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -121,6 +123,23 @@ def precompute_or_load_embeddings(ontology_data: Dict, embeddings_filepath: str)
         save_embeddings_to_file(embeddings, embeddings_filepath)
         return embeddings
 
+
+
+def is_similar(word: str, prop_name: str, word_embedding: np.ndarray, prop_embedding: np.ndarray, threshold: float = 0.4) -> bool:
+    """
+    Combines cosine similarity and Levenshtein distance to determine whether two words are similar enough.
+    """
+    # Compute cosine similarity for semantic matching
+    embedding_similarity = cosine_similarity([word_embedding], [prop_embedding])[0][0]
+    
+    # Compute Levenshtein distance for structural string similarity
+    levenshtein_similarity = 1 - (Levenshtein.distance(word, prop_name) / max(len(word), len(prop_name)))
+    
+    # Combine both similarities (you can tweak the weights as needed)
+    combined_similarity = (embedding_similarity * 0.7) + (levenshtein_similarity * 0.3)
+    
+    return combined_similarity >= threshold
+
     
 def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens: List[Tuple[str, str]], 
                                  ontology_data: Dict, embeddings_filepath: str):
@@ -149,13 +168,12 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     # Step 1: Compare nouns to individuals in class_individuals_dict
     for word, pos in pos_tagged_tokens:
         if pos.startswith('NN'):  # Nouns
-            word_embedding = get_embedding(word)  # Still need to compute embeddings for dynamic input
+            word_embedding = get_embedding(word)  # Compute embedding for the dynamic input
             for class_name, individuals in class_individuals_dict.items():
                 for individual in individuals:
                     if individual in individual_embeddings:  # Use precomputed embedding for the individual
                         individual_embedding = individual_embeddings[individual]
-                        similarity = cosine_similarity([word_embedding], [individual_embedding])[0][0]
-                        if similarity > 0.65:  # Similar enough
+                        if is_similar(word, individual, word_embedding, individual_embedding, threshold=0.65):  # Combine similarity
                             if class_name not in classes:
                                 classes.append(class_name)
                             break  # No need to check other individuals in this class!
@@ -164,14 +182,14 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     # Step 2: Compare nouns to class names in class_subclasses_dict
     for word, pos in pos_tagged_tokens:
         if pos.startswith('NN'):  # Nouns
-            word_embedding = get_embedding(word)  # Compute embedding for the dynamic input word
+            word_embedding = get_embedding(word)  # Compute embedding for the dynamic input
             for class_name in class_subclasses_dict.keys():
                 if class_name in class_embeddings:  # Use precomputed embedding for the class
                     class_embedding = class_embeddings[class_name]
-                    similarity = cosine_similarity([word_embedding], [class_embedding])[0][0]
-                    if similarity > 0.65:  # Similar enough
+                    if is_similar(word, class_name, word_embedding, class_embedding, threshold=0.65):  # Combine similarity
                         if class_name not in classes:
                             classes.append(class_name)
+
                         
     
     # Step 3: Compare words to object properties in obj_property_domain_range_dict
@@ -180,14 +198,14 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
         for prop_name, (domain, range_) in obj_property_domain_range_dict.items():
             if prop_name in obj_property_embeddings:  # Use precomputed embedding for the object property
                 prop_embedding = obj_property_embeddings[prop_name]
-                similarity = cosine_similarity([word_embedding], [prop_embedding])[0][0]
-                if similarity > 0.4:  # Similar enough
+                if is_similar(word, prop_name, word_embedding, prop_embedding, threshold=0.4):  # Combine similarity
                     if prop_name not in obj_properties:
                         obj_properties.append(prop_name)
                     if domain[0] not in classes:
                         classes.append(domain[0])
                     if range_[0] not in classes:
                         classes.append(range_[0])
+
                     
         
     # Step 4: Compare words to data properties in data_property_domain_dict
@@ -196,12 +214,24 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
         for data_prop_name, domain in data_property_domain_dict.items():
             if data_prop_name in data_property_embeddings:  # Use precomputed embedding for the data property
                 data_prop_embedding = data_property_embeddings[data_prop_name]
-                similarity = cosine_similarity([word_embedding], [data_prop_embedding])[0][0]
-                if similarity > 0.4:  # Similar enough
+                if is_similar(word, data_prop_name, word_embedding, data_prop_embedding, threshold=0.4):  # Combine similarity
                     if data_prop_name not in data_properties:
                         data_properties.append(data_prop_name)
                     if domain[0] not in classes:
                         classes.append(domain[0])
+                        
+    
+    ### Final Step: Scan all individuals of relevant classes and gather their data properties
+    for class_name in classes:
+        if class_name in class_individuals_dict:  # Ensure the class has individuals
+            individuals = class_individuals_dict[class_name]
+            for individual in individuals:
+                for data_prop_name, domain in data_property_domain_dict.items():
+                    # Check if the individual's class is in the domain of the data property
+                    if domain[0] == class_name and data_prop_name not in data_properties:
+                        data_properties.append(data_prop_name)
+                        
+
     
 
     # Step 5: Filter the dictionaries based on collected classes and properties
@@ -222,7 +252,7 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
 
 if __name__ == "__main__":
     ontology_data = find_ontology_entities('ontology3.owl')
-    print(type(ontology_data))
+    # print(type(ontology_data))
     # Accessing different parts of the returned data
     # print(f"Classes and subclasses: {ontology_data['class_subclasses']}")
     # print("\n\n\n\n\n")

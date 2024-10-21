@@ -114,9 +114,13 @@ class Agent:
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
             self.ontology_elements = find_ontology_entities('ontology3.owl')
-            print(self.ontology_elements.keys())
+            print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
+            print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
+            print(f"- Data Properties: {len(self.ontology_elements['data_property_domain'])}")
             self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.embeddings_path)
-            print(self.ontology_filtered)
+            print(f"- Filtered Classes: {len(self.ontology_filtered['filtered_classes'])} \n {self.ontology_filtered['filtered_classes'].keys()}")
+            print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
+            print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
             self.state = 2
         # --------------------------------------------------------------------------------------------#
 
@@ -160,7 +164,7 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("When I drink water it causes me headaches.")
+    test_prompt = Prompt("ingredient.")
     test_env.set_prompt(test_prompt)
 
     # Create an agent
