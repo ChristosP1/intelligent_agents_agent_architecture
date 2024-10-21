@@ -7,7 +7,7 @@ import owlready2
 
 # Files
 from llm_utils import initialize_llm, generate_synonyms
-from nlp import preprocess_text
+from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items
 from reddit_utils import RedditAPI
 
@@ -20,14 +20,18 @@ class Prompt:
 
 class Source:
     """Used to wrap a source given to the environment, to be processed by an agent."""
-    def __init__(self, information: str):
-        pass
+    def __init__(self, origin: str, information: str):
+        self.origin = origin
+        self.info = information
+
+    def compare_to(self, another):  # Just uses another Source, I don't know why Python doesn't like that type definition
+        return cosine_similarity(self.info, another.info)
 
 class Env:
     """Contains all information in the environment."""
     def __init__(self):
         self.agents = []
-        self.prompt = ""
+        self.prompt = None
         self.sources = []
 
     def step(self):
@@ -43,7 +47,7 @@ class Env:
         self.agents.append(a)
 
     def set_prompt(self, prompt: Prompt):
-        self.prompt = promptoutput_parser
+        self.prompt = prompt
 
     def add_source(self, source: Source):
         self.sources.append(source)
@@ -89,6 +93,9 @@ class Agent:
         self.answer = ""
         self.explanation = ""
     
+    def ontology_source_utility(self, source: Source) -> float:
+        return cosine_similarity(self.answer, source.info)
+
     def perceive(self):
         if self.state == 1:  # We are looking for a prompt -> Get a prompt from an user in the env.
             if self.env.prompt is not None:
@@ -122,8 +129,6 @@ class Agent:
                 self.answer = None  # TODO: Obtain an answer from the query
                 self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
                 self.state = 3
-            else:  # If there's no more remaining sources to query
-                self.state = 5
         elif self.state == 3:  # We are currently querying external sources and have obtained one (hopefully)
             # TODO: Query the text for a truth value?
             # TODO: Turn the text into an ontology query?
@@ -142,6 +147,7 @@ class Agent:
                 self.env.sources.pop(0)
             else:
                 self.sourceidx += 1  # Ignore the current source; leave it in the environment
+            self.removesource = False
         if self.state == 5:
             print(self.answer)
             print(self.explanation)
