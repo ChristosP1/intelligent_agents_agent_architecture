@@ -1,6 +1,8 @@
 """NLP Module used to turn prompts into queries."""
 import nltk
 import string
+import math
+
 from nltk.util import ngrams
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -10,6 +12,7 @@ from typing import List
 nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger_eng')
+nltk.download('averaged_perceptron_tagger')
 
 # query_db = ["Are frogs dangerous?", "Can sharks be found on land?", "Are frogs not dangerous?"]
 
@@ -110,3 +113,28 @@ def preprocess_text(prompt: str) -> str:
     tokens_pos = pos_tagging(tokens_remove_stop)
     
     return tokens_remove_stop, tokens_pos
+
+
+
+def cosine_similarity(str1: str, str2: str) -> float:
+    """Calculate the cosine similarity between two strings. This cosine similarity
+    is then scaled to be within the range of [0,1] by only using positive counts."""
+    vector1 = []
+    vector2 = []
+    tokens1 = nltk.word_tokenize(str1)
+    tokens2 = nltk.word_tokenize(str2)
+    combined = tokens1 + tokens2
+
+    nomsum = 0
+    denomsuma = 0
+    denomsumb = 0
+    for i, _ in enumerate(set(combined)):
+        nomsum += vector1[i] * vector2[i]
+        denomsuma += vector1[i]**2
+        denomsumb += vector2[i]**2
+    
+    print(nomsum)
+    print(denomsuma)
+    print(denomsumb)
+
+    return (nomsum/(math.sqrt(denomsuma) * math.sqrt(denomsumb)))
