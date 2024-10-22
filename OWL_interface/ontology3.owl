@@ -24,67 +24,89 @@
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation">
+        <rdfs:label>BetweenAnimalsAndLocation</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndHealth">
+        <rdfs:label>BetweenFoodAndHealth</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenFoodAndRecipe">
+        <rdfs:label>BetweenFoodAndRecipe</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenRecipeAndLocation">
+        <rdfs:label>BetweenRecipeAndLocation</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndBodyPart">
+        <rdfs:label>BetweenSportAndBodyPart</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth">
+        <rdfs:label>BetweenSportAndHealth</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndLocation -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndLocation"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndLocation">
+        <rdfs:label>BetweenSportAndLocation</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinAnimals">
+        <rdfs:label>WithinAnimals</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood">
+        <rdfs:label>WithinFood</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth">
+        <rdfs:label>WithinHealth</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation -->
 
-    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation"/>
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinLocation">
+        <rdfs:label>WithinLocation</rdfs:label>
+    </owl:ObjectProperty>
     
 
 
@@ -458,37 +480,49 @@
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals">
+        <rdfs:label>AboutAnimals</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutCookingMethod">
+        <rdfs:label>AboutCookingMethod</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutFood">
+        <rdfs:label>AboutFood</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth">
+        <rdfs:label>AboutHealth</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutLocation">
+        <rdfs:label>AboutLocation</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutRecipe">
+        <rdfs:label>AboutRecipe</rdfs:label>
+    </owl:DatatypeProperty>
     
 
 
@@ -496,6 +530,7 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+        <rdfs:label>AboutSport</rdfs:label>
     </owl:DatatypeProperty>
     
 
