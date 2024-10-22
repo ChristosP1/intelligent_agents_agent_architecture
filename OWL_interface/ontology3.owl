@@ -144,6 +144,7 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:range>
+        <rdfs:label>hasDiet</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -197,6 +198,7 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasSport">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndLocation"/>
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isPlayedIn"/>
+        <rdfs:label>hasSport</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -208,6 +210,7 @@
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#resultsFrom"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
+        <rdfs:label>hasSymptom</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -230,6 +233,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenSportAndHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
+        <rdfs:label>isCausedBy</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -247,6 +251,7 @@
             </owl:Class>
         </rdfs:domain>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
+        <rdfs:label>isEatenBy</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -298,6 +303,7 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:range>
+        <rdfs:label>isPlayedIn</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -315,6 +321,7 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:range>
+        <rdfs:label>isPresentIn</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -422,6 +429,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <rdfs:label>resultsFrom</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -654,6 +662,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutAnimals"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>isPoisonous</rdfs:label>
     </owl:DatatypeProperty>
     
 
@@ -675,6 +684,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>shouldVisitDoctor</rdfs:label>
     </owl:DatatypeProperty>
     
 
@@ -1193,6 +1203,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MajorSurgery">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Surgery"/>
+        <rdfs:label>MajorSurgery</rdfs:label>
     </owl:Class>
     
 
@@ -1228,6 +1239,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
+        <rdfs:label>Medication</rdfs:label>
     </owl:Class>
     
 
@@ -1236,6 +1248,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Minerals">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nutrient"/>
+        <rdfs:label>Minerals</rdfs:label>
     </owl:Class>
     
 
@@ -1244,6 +1257,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MinorSurgery">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Surgery"/>
+        <rdfs:label>MinorSurgery</rdfs:label>
     </owl:Class>
     
 
@@ -1306,6 +1320,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#OverTheCounter">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
+        <rdfs:label>OverTheCounter</rdfs:label>
     </owl:Class>
     
 
@@ -1332,6 +1347,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PhysicalTherapy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Therapy"/>
+        <rdfs:label>PhysicalTherapy</rdfs:label>
     </owl:Class>
     
 
@@ -1349,6 +1365,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Prescription">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Medication"/>
+        <rdfs:label>Prescription</rdfs:label>
     </owl:Class>
     
 
@@ -1357,6 +1374,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PsychoTherapy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Therapy"/>
+        <rdfs:label>PsychoTherapy</rdfs:label>
     </owl:Class>
     
 
@@ -1534,6 +1552,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Surgery">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
+        <rdfs:label>Surgery</rdfs:label>
     </owl:Class>
     
 
@@ -1560,6 +1579,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Therapy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment"/>
+        <rdfs:label>Therapy</rdfs:label>
     </owl:Class>
     
 
@@ -1568,6 +1588,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Treatment">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Health"/>
+        <rdfs:label>Treatment</rdfs:label>
     </owl:Class>
     
 
@@ -1625,6 +1646,7 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Recipe"/>
+        <rdfs:label>Vegetarian</rdfs:label>
     </owl:Class>
     
 
