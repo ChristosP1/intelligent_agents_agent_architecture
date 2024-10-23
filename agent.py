@@ -6,11 +6,11 @@ from typing import List, Dict, Union
 import owlready2
 
 # Files
-from llm_utils import initialize_llm, generate_synonyms
+from llm_utils import initialize_llm, generate_synonyms, generate_dl_queries
 from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items
 from reddit_utils import RedditAPI
-from llm_source import * 
+
 
 
 class Prompt:
@@ -34,7 +34,6 @@ class Env:
         self.prompt = None
         self.sources = []
 
-       
     def step(self):
         for a in self.agents:
             a.perceive()
@@ -66,8 +65,6 @@ class Agent:
         self.output_parser = output_parser
         
         self.reddit_api = RedditAPI()
-        self.llm_source = ChatGPT_API_Source()
-        self.source_output_list = []
         
         self.env : Env = env
         self.prompt : Prompt = None
@@ -79,6 +76,7 @@ class Agent:
         self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
         self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
+        self.dl_queries = List[str]
 
         # ----------------------------- #
         
@@ -105,18 +103,10 @@ class Agent:
                 print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
-            
-            tmp = self.llm_source.evaluate_normative_statement(self.prompt.text)            
-            self.source_output_list.append(tmp)            
-            
-            tmp2 = self.reddit_api.evaluate_normative_statement(self.prompt.text, 40 , 20 ,0.35 )
-            self.source_output_list.append(tmp2)            
-
-            #print("self.source_output_list : ",self.source_output_list)
-            #if len(self.env.sources) > 0:
-            #    self.source = self.env.sources[self.sourceidx]
-            #else:  # Fallback scenario in case if all sources have been exhausted.
-            #    self.source = None
+            if len(self.env.sources) > 0:
+                self.source = self.env.sources[self.sourceidx]
+            else:  # Fallback scenario in case if all sources have been exhausted.
+                self.source = None
 
 
     def reason(self):
@@ -125,13 +115,21 @@ class Agent:
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
             self.ontology_elements = find_ontology_entities('ontology3.owl')
+
             print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
             print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
             print(f"- Data Properties: {len(self.ontology_elements['data_property_domain'])}")
+            
             self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.embeddings_path)
+            
             print(f"- Filtered Classes: {len(self.ontology_filtered['filtered_classes'])} \n {self.ontology_filtered['filtered_classes'].keys()}")
             print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
             print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
+            
+            self.dl_queries = generate_dl_queries(self.llm, self.prompt.text, self.ontology_filtered)
+            
+            print(f"- DL queries: {self.dl_queries}")
+            
             self.state = 2
         # --------------------------------------------------------------------------------------------#
 
@@ -139,6 +137,7 @@ class Agent:
             # TODO: We need to get a DL query here for the ontology!
             # Use self.variedprompt?
             if self.sourceidx <= len(self.env.sources):
+                print("Query ontology")
                 outcome = None # TODO: Query the ontology.
                 self.truthval = None # TODO: Explicitely obtain truth value from query
                 self.answer = None  # TODO: Obtain an answer from the query
@@ -175,7 +174,7 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("ingredient.")
+    test_prompt = Prompt("A Wolf has averagelifespan of 100 years and concussion causes headaches")
     test_env.set_prompt(test_prompt)
 
     # Create an agent
@@ -184,3 +183,4 @@ if __name__=="__main__":
     # The agent perceives the prompt and process it in State 1
     test_agent.perceive() 
     test_agent.reason()  
+    test_agent.reason()
