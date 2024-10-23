@@ -10,7 +10,7 @@ from llm_utils import initialize_llm, generate_synonyms
 from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items
 from reddit_utils import RedditAPI
-
+from llm_source import * 
 
 
 class Prompt:
@@ -34,6 +34,7 @@ class Env:
         self.prompt = None
         self.sources = []
 
+       
     def step(self):
         for a in self.agents:
             a.perceive()
@@ -65,6 +66,8 @@ class Agent:
         self.output_parser = output_parser
         
         self.reddit_api = RedditAPI()
+        self.llm_source = ChatGPT_API_Source()
+        self.source_output_list = []
         
         self.env : Env = env
         self.prompt : Prompt = None
@@ -102,10 +105,18 @@ class Agent:
                 print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
-            if len(self.env.sources) > 0:
-                self.source = self.env.sources[self.sourceidx]
-            else:  # Fallback scenario in case if all sources have been exhausted.
-                self.source = None
+            
+            tmp = self.llm_source.evaluate_normative_statement(self.prompt.text)            
+            self.source_output_list.append(tmp)            
+            
+            tmp2 = self.reddit_api.evaluate_normative_statement(self.prompt.text, 40 , 20 ,0.35 )
+            self.source_output_list.append(tmp2)            
+
+            #print("self.source_output_list : ",self.source_output_list)
+            #if len(self.env.sources) > 0:
+            #    self.source = self.env.sources[self.sourceidx]
+            #else:  # Fallback scenario in case if all sources have been exhausted.
+            #    self.source = None
 
 
     def reason(self):

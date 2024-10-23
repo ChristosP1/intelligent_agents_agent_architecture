@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import praw
 from prawcore.exceptions import NotFound, PrawcoreException
+from nlp import *
+
 
 class RedditAPI:
     def __init__(self):
@@ -38,14 +40,15 @@ class RedditAPI:
         # Perform the global search on Reddit (using the "all" subreddit for global search)
         search_results = self.reddit.subreddit('all').search(query, limit=limit)
         
-        # Collect the results into a list of dictionaries
+        # Collect the results into a list of dictionaries, filter out non-Reddit links
         results = []
         for post in search_results:
-            results.append({
-                'title': post.title,
-                'url': post.url,
-                'comments': post.num_comments
-            })
+            if post.url.startswith("https://www.reddit.com"):
+                results.append({
+                    'title': post.title,
+                    'url': post.url,
+                    'comments': post.num_comments
+                })
 
         return results
     
@@ -123,6 +126,65 @@ class RedditAPI:
         # If no valid posts were found, return an appropriate message
         return "No valid results found for the query."
 
+
+    def evaluate_normative_statement(self, normative_statement: str, post_limit: int = 1, comment_limit: int = 10, threshold: float = 0.6):
+        """
+        Evaluate a normative statement by searching for relevant posts on Reddit and comparing the cosine similarity
+        between the normative statement and the Reddit posts.
+
+        Args:
+            normative_statement (str): The normative statement to evaluate.
+            post_limit (int): The number of posts to retrieve (default is 1).
+            comment_limit (int): The number of comments to retrieve (default is 10).
+            threshold (float): The similarity threshold to determine if the statement is true or false (default is 0.6).
+        
+        Returns:
+            dict: A dictionary indicating if the statement is true, the reason, and the cosine similarity value.
+        """
+        # Search for the statement on Reddit
+        search_results = self.link_search_reddit(normative_statement, limit=post_limit)
+        
+        # Initialize variables to track the best match
+        best_post = None
+        best_similarity = 0
+        
+        # Loop through the search results to find the post with the highest similarity
+        for result in search_results:
+            post_url = result['url']
+            post_details = self.fetch_post_content_and_comments(post_url, comment_limit=comment_limit)
+
+            if "error" not in post_details:
+                # Combine the post title, content, and comments for comparison
+                combined_text = f"{post_details['title']} {post_details['content']} {' '.join(post_details['comments'])}"
+
+                # Use the cosine_similarity function from the nlp module
+                similarity = cosine_similarity(normative_statement, combined_text)
+                
+                # If this post has the highest similarity, update the best match
+                if similarity > best_similarity:
+                    best_similarity = similarity
+                    best_post = {
+                        'title': post_details['title'],
+                        'url': post_url,
+                        'similarity': similarity,
+                        'content': post_details['content'],
+                        'comments': post_details['comments']
+                    }
+
+        # Evaluate if the statement is real_information based on the threshold
+        if best_post and best_similarity >= threshold:
+            return {
+                'real_information': True,
+                'reason': f"Someone on Reddit said: Title: {best_post['title']}. Content: {best_post['content']}",
+                'similarity': best_similarity
+            }
+        else:
+            return {
+                'real_information': False,
+                'reason': f"Someone on Reddit said: Title: {best_post['title']}. Content: {best_post['content']}" if best_post else "No relevant posts found.",
+                'similarity': best_similarity
+            }
+
 if __name__ == "__main__":
     reddit_api = RedditAPI()  # Initialize Reddit API
 
@@ -131,4 +193,11 @@ if __name__ == "__main__":
     result = reddit_api.get_post_and_comments(query)
     
     # Print the results
-    print(result)
+    #print(result)
+    
+    #  a normative statement
+    normative_statement = "Drinking water helps with headaches."
+
+    # Evaluate the statement by searching Reddit
+    best_match = reddit_api.evaluate_normative_statement(normative_statement, 25 , 15 ,0.35 )
+    print(best_match)

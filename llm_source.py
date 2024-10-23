@@ -1,13 +1,16 @@
 import os
+import json
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from json import JSONDecodeError
+from tolerantjson import tolerate
 
 class ChatGPT_API_Source:
     """
     A class to interact with the ChatGPT API using the 'gpt-4o-mini' model.
     """
 
-    def __init__(self, model="gpt-4o-mini", temperature=0.5, max_tokens=4096):
+    def __init__(self, model="gpt-4o-mini", temperature=0.4, max_tokens=4096):
         load_dotenv()
         self.api_key = os.getenv("OPENAI_API_KEY")
         self.model = model
@@ -43,7 +46,7 @@ class ChatGPT_API_Source:
             statement (str): The normative statement to be evaluated.
         
         Returns:
-            str: The JSON response from the API with the evaluation.
+            dict: The JSON response from the API with the evaluation.
         """
         # Define the prompt with 3 example evaluations
         prompt = f"""
@@ -76,8 +79,25 @@ class ChatGPT_API_Source:
         Please evaluate this normative statement: "{statement}"
         """
         # Call the API with the generated prompt
-        return self.call_chatgpt_api(prompt)
+        response = self.call_chatgpt_api(prompt)
+        
+        if response is None:
+            return {"real_information": False, "reason": "Unknown"}
 
+        # Attempt to parse response as JSON using tolerantjson
+        try:
+            # Removing non-JSON artifacts (if any) and attempting to parse
+            cleaned_response = response.strip().replace("```json", "").replace("```", "")
+            parsed_response = tolerate(cleaned_response)
+        except Exception as e:
+            print(f"Error in tolerant JSON parsing: {e}")
+            return {"real_information": False, "reason": "Unknown"}
+
+        # Check if the required keys exist in parsed response
+        if not isinstance(parsed_response, dict) or "real_information" not in parsed_response or "reason" not in parsed_response:
+            return {"real_information": False, "reason": "Unknown"}
+
+        return parsed_response
 
 # Example usage
 if __name__ == "__main__":
