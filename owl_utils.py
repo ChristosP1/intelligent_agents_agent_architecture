@@ -49,13 +49,14 @@ def find_ontology_entities(owl_path: str):
             domain = [dom.name for dom in obj_property.domain]  # Domain can be a list
             range_ = [ran.name for ran in obj_property.range]    # Range can also be a list
             obj_property_domain_range_dict[obj_property.name] = [domain, range_]
-
+        
         # 4. Dictionary of data properties and their domain
         data_property_domain_dict = {}
         for data_property in onto.data_properties():
             domain = [dom.name for dom in data_property.domain]
-            data_property_domain_dict[data_property.name] = domain
-
+            range_ = [ran.__name__ if isinstance(ran, type) else str(ran) for ran in data_property.range]
+            data_property_domain_dict[data_property.name] = [domain, range_]
+        
         # 5. List of all individuals' names in the ontology
         all_individuals_list = [individual.name for individual in onto.individuals()]
 
@@ -211,14 +212,14 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     # Step 4: Compare words to data properties in data_property_domain_dict
     for word in statement_tokens:
         word_embedding = get_embedding(word)  # Compute embedding for the dynamic input word
-        for data_prop_name, domain in data_property_domain_dict.items():
+        for data_prop_name, (domain, range_) in data_property_domain_dict.items():
             if data_prop_name in data_property_embeddings:  # Use precomputed embedding for the data property
                 data_prop_embedding = data_property_embeddings[data_prop_name]
                 if is_similar(word, data_prop_name, word_embedding, data_prop_embedding, threshold=0.4):  # Combine similarity
                     if data_prop_name not in data_properties:
                         data_properties.append(data_prop_name)
                     if domain[0] not in classes:
-                        classes.append(domain[0])
+                        classes.append(domain[0]) 
                         
     
     ### Final Step: Scan all individuals of relevant classes and gather their data properties
@@ -246,9 +247,6 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     }
     
     
-    
-    
-    
 
 if __name__ == "__main__":
     ontology_data = find_ontology_entities('ontology3.owl')
@@ -258,9 +256,9 @@ if __name__ == "__main__":
     # print("\n\n\n\n\n")
     # print(f"Classes and individuals: {ontology_data['class_individuals']}")
     # print("\n\n\n\n\n")
-    # print(f"Object properties with domain and range: {ontology_data['object_property_domain_range']}")
-    # print("\n\n\n\n\n")
-    # print(f"Object properties with domain: {ontology_data['data_property_domain']}")
+    print(f"Object properties with domain and range: {ontology_data['object_property_domain_range']}")
+    print("\n\n\n\n\n")
+    print(f"Data properties with domain: {ontology_data['data_property_domain']}")
     # print("\n\n\n\n\n")
     # print(f"All individuals: {ontology_data['all_individuals']}")
 
