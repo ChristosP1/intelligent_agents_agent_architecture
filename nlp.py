@@ -127,6 +127,10 @@ def cosine_similarity(str1: str, str2: str) -> float:
     tokens2 = nltk.word_tokenize(str2)
     combined = tokens1 + tokens2
 
+    for token in set(combined):
+        vector1.append(tokens1.count(token))
+        vector2.append(tokens2.count(token))
+
     nomsum = 0
     denomsuma = 0
     denomsumb = 0
@@ -134,9 +138,5 @@ def cosine_similarity(str1: str, str2: str) -> float:
         nomsum += vector1[i] * vector2[i]
         denomsuma += vector1[i]**2
         denomsumb += vector2[i]**2
-    
-    print(nomsum)
-    print(denomsuma)
-    print(denomsumb)
 
     return (nomsum/(math.sqrt(denomsuma) * math.sqrt(denomsumb)))
