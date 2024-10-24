@@ -8,7 +8,7 @@ class OWLInterface:
         self.ontology = get_ontology(ontology_path).load()
 
         with self.ontology:
-            sync_reasoner_pellet(infer_property_values=True)
+            sync_reasoner(infer_property_values=True)
 
 
     def query_ontology(self, query):
