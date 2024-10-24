@@ -24,7 +24,7 @@ def main():
             
             SELECT ?condition
             WHERE {
-              ?condition a ex:Dehydration;
+              ?condition a/rdfs:subClassOf* ex:Dehydration;
                     ex:hasSymptom ex:Headache;
                     ex:shouldVisitDoctor false .
             }
@@ -35,7 +35,7 @@ def main():
             
             SELECT ?injury
             WHERE {
-              ?injury a ex:Injury;
+              ?injury a/rdfs:subClassOf* ex:Injury;
                     ex:isCausedBy ex:Football;
                     ex:hasSymptom ex:Headache .
             }
@@ -46,7 +46,7 @@ def main():
 
             SELECT ?injury
             WHERE {
-              ?injury a ex:Injury;
+              ?injury a/rdfs:subClassOf* ex:Injury;
                     ex:hasSymptom ex:Headache;
                     ex:shouldVisitDoctor true .
             }
@@ -57,7 +57,7 @@ def main():
 
             SELECT ?symptom
             WHERE {
-              ?symptom a ex:Symptom;
+              ?symptom a/rdfs:subClassOf* ex:Symptom;
                     ex:resultsFrom ex:Concussion .
             }
             """
@@ -72,7 +72,7 @@ def main():
     
             SELECT ?frogAndToad
             WHERE {
-              ?frogAndToad a ex:FrogAndToad;
+              ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad;
                            ex:isPoisonous false;
                            ex:isEatenBy ex:Human .
             }
@@ -83,8 +83,9 @@ def main():
 
             SELECT ?nutrient
             WHERE {
-              ?nutrient a ex:Nutrient;
-                        ex:isPresentIn ex:FrogAndToad .
+              ?nutrient a/rdfs:subClassOf* ex:Nutrient;
+                        ex:isPresentIn ?frog.
+              ?frog a/rdfs:subClassOf* ex:FrogAndToad.
             }
             """
         ,
@@ -93,8 +94,9 @@ def main():
 
             SELECT ?recipe
             WHERE {
-              ?recipe a ex:Recipe;
-                      ex:hasIngredient ex:FrogAndToad .
+              ?recipe a/rdfs:subClassOf* ex:Recipe;
+                      ex:hasIngredient ?frog .
+              ?frog a/rdfs:subClassOf* ex:FrogAndToad.
             }
             """
     ]
@@ -108,7 +110,7 @@ def main():
             
             SELECT ?location
             WHERE {
-              ?location a ex:Location;
+              ?location a/rdfs:subClassOf* ex:Location;
                          ex:hasAnimal ex:Shark;
                          ex:hasSport ex:Volleyball .
             }
@@ -119,7 +121,7 @@ def main():
 
             SELECT ?vegetarian
             WHERE {
-              ?vegetarian a ex:Vegetarian;
+              ?vegetarian a/rdfs:subClassOf* ex:Vegetarian;
                            ex:hasIngredient ?ingredient;
                            ex:isEatenBy ex:Shark .
               FILTER (?ingredient = ex:Animal || ?ingredient = ex:Seafood || ?ingredient = ex:Meat)
@@ -132,10 +134,9 @@ def main():
             
             SELECT ?sport
             WHERE {
-              ?sport a ex:Swimming ;
-                     a ex:RepetitiveNonContact ;
+              ?sport a/rdfs:subClassOf* ex:RepetitiveNonContact ;
                      ex:caloriesBurnedPerHour ?calories .
-              FILTER(?calories > 500)
+              FILTER(?calories > 500 && ?sport = ex:Swimming)
             }
             """
     ]
