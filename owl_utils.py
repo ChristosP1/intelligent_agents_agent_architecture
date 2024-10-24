@@ -143,10 +143,10 @@ def is_similar(word: str, prop_name: str, word_embedding: np.ndarray, prop_embed
 
     
 def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens: List[Tuple[str, str]], 
-                                 ontology_data: Dict, embeddings_filepath: str):
+                                 ontology_data: Dict, ontology_embeddings):
     
     # Load or compute embeddings
-    ontology_embeddings = precompute_or_load_embeddings(ontology_data, embeddings_filepath)
+    # ontology_embeddings = precompute_or_load_embeddings(ontology_data, embeddings_filepath)
     
     # Initialize lists
     classes = []

@@ -8,7 +8,7 @@ import owlready2
 # Files
 from llm_utils import initialize_llm, generate_synonyms, generate_dl_queries
 from nlp import preprocess_text, cosine_similarity
-from owl_utils import find_ontology_entities, find_relevant_ontology_items
+from owl_utils import find_ontology_entities, find_relevant_ontology_items, precompute_or_load_embeddings
 from reddit_utils import RedditAPI
 
 
@@ -60,9 +60,7 @@ class Agent:
     """Contains all information related to individual agents."""
     # TODO: Massive work in progress, needs more logic.
     def __init__(self, env: Env):
-        llm, output_parser = initialize_llm()
-        self.llm = llm
-        self.output_parser = output_parser
+        self.llm = initialize_llm()
         
         self.reddit_api = RedditAPI()
         
@@ -70,12 +68,15 @@ class Agent:
         self.prompt : Prompt = None
         
         # ---------- State 1 ---------- #
+        self.ontology_elements = find_ontology_entities('ontology3.owl')
+        self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
+        self.ontology_embeddings = precompute_or_load_embeddings(self.ontology_elements, self.embeddings_path)
         self.tokenized_prompt : List[str] = []
         self.pos_tags : List[tuple] = []
         self.tokenized_prompt_with_synonyms : List[str] = []
-        self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
+        # self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
-        self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
+        
         self.dl_queries = List[str]
 
         # ----------------------------- #
@@ -114,13 +115,12 @@ class Agent:
         if self.state == 1 and isinstance(self.prompt, Prompt):  # We have perceived a prompt.
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
-            self.ontology_elements = find_ontology_entities('ontology3.owl')
 
             print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
             print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
             print(f"- Data Properties: {len(self.ontology_elements['data_property_domain'])}")
             
-            self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.embeddings_path)
+            self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.ontology_embeddings)
             
             print(f"- Filtered Classes: {len(self.ontology_filtered['filtered_classes'])} \n {self.ontology_filtered['filtered_classes'].keys()}")
             print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")

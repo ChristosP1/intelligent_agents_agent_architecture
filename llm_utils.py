@@ -21,7 +21,6 @@ def initialize_llm():
 
     Returns:
         llm: The OpenAI llm with its settings
-        output_parser: The output parser that makes the outputs more presentable
     """
     # LOAD API KEY #
     load_dotenv()
@@ -34,9 +33,8 @@ def initialize_llm():
         max_tokens=4096,
         api_key=openai_api_key)
 
-    output_parser = StrOutputParser()
     
-    return llm, output_parser
+    return llm
 
 
 def generate_synonyms(llm, pos_tagged_words, synonyms_num=3):
