@@ -36,42 +36,70 @@ synonyms_schema = Object(
 
 # ================================================= DL QUERIES ================================================= #
 
-dl_queries_template = ''' 
-    You are an expert in Description Logic (DL) queries. You will take a user statement, and based on the given ontology 
-    (classes, individuals, object properties, and data properties), generate simple DL queries to either prove or disprove the statement. 
+sparql_queries_template = ''' 
+    You are an expert in SPARQL queries. You will take a user statement, and based on the given ontology 
+    (classes, individuals, object properties, and data properties), generate simple SPARQL queries to either 
+    prove or disprove the statement. 
 
     The ontology is provided in three parts:
     - **Classes and Individuals**: A dictionary where the keys are class names, and the values are lists of individuals that belong to the class.
     - **Object Properties**: A dictionary where the keys are object properties, and the values are lists with the domain (class) and range (class).
     - **Data Properties**: A dictionary where the keys are data properties, and the values are lists with the domain (class) and range (data type like integer, float, or string).
 
-    Your goal is to generate as few DL queries as possible to check whether the statement can be proven using this ontology. 
-    The queries should use the relevant individuals, object properties, or data properties where applicable. 
-    Ensure the queries are as simple as possible, using minimal logical operations.
-    
+    Your goal is to generate as few SPARQL queries as possible to check whether the statement can be proven using this ontology.
+    Ensure the queries use `rdfs:subClassOf*` where appropriate to retrieve both direct instances and instances from subclasses.
+
     ### Examples:
     1. **Statement**: "Concussion can cause headaches."
-   - **Ontology**:
-    - Classes: {{"Concussion": ["Concussion"], "Symptom": ["Headache", "Nausea"]}}
-    - Object Properties: {{"causesSymptom": ["Concussion", "Symptom"]}}
-    - Data Properties: {{}}
-   - **DL Query**: `Concussion and (causesSymptom some Headache)`
-   
-   2. **Statement**: "Lizards can live up to 200 years old."
-   - **Ontology**:
-     - Classes: {{"Lizard": ["Lizard"]}}
-     - Object Properties: {{}}
-     - Data Properties: {{"lifeExpectancy": ["Lizard", "integer"]}}
-   - **DL Query**: `Lizard and (lifeExpectancy value 200)`
+    - **Ontology**:
+        - Classes: {{"Concussion": ["Concussion"], "Symptom": ["Headache", "Nausea"]}}
+        - Object Properties: {{"causesSymptom": ["Concussion", "Symptom"]}}
+        - Data Properties: {{}}
+    - **SPARQL Query**:
+    ```sparql
+    PREFIX ex: {prefix}
+    
+    SELECT ?symptom
+    WHERE {{
+        ?symptom a/rdfs:subClassOf* ex:Symptom;
+                ex:resultsFrom ex:Concussion .
+    }}
+    ```
+    
+    2. **Statement**: "Lizards can live up to 200 years old."
+    - **Ontology**:
+        - Classes: {{"Lizard": ["Lizard"]}}
+        - Object Properties: {{}}
+        - Data Properties: {{"lifeExpectancy": ["Lizard", "integer"]}}
+    - **SPARQL Query**:
+    ```sparql
+    PREFIX ex: {prefix}
+    
+    SELECT ?lizard
+    WHERE {{
+    ?lizard a/rdfs:subClassOf* ex:Lizard;
+            ex:lifeExpectancy ?years .
+    FILTER (?years >= 200)
+    }}
+    ```
 
     3. **Statement**: "Dogs are carnivores."
     - **Ontology**:
         - Classes: {{"Dog": ["GoldenRetriever", "Bulldog"], "Diet": ["Carnivore"]}}
         - Object Properties: {{"hasDiet": ["Dog", "Diet"]}}
         - Data Properties: {{}}
-    - **DL Query**: `Dog and (hasDiet some Carnivore)`
+    - **SPARQL Query**:
+    ```sparql
+    PREFIX ex: {prefix}
+    
+    SELECT ?dog
+    WHERE {{
+    ?dog a/rdfs:subClassOf* ex:Dog;
+         ex:hasDiet ex:Carnivore .
+    }}
+    ```
 
-    Now, generate a list of DL queries to prove or disprove the following statement:
+    Now, generate a list of SPARQL queries to prove or disprove the following statement:
 
     **User's Statement**: "{statement}"
 
@@ -79,23 +107,23 @@ dl_queries_template = '''
     - **Classes and Individuals**: {class_individuals}
     - **Object Properties**: {obj_properties}
     - **Data Properties**: {data_properties}
+    
+    **Prefix**: {prefix}
 
-    Generate a list of DL queries in string format, focusing only on the relevant individuals, object properties, or data properties.
-    You can generate multiple DL queries if one query does not cover the whole statement.
+    Ensure to use `rdfs:subClassOf*` where applicable to include subclasses and relevant instances.
     '''
     
     
-dl_queries_prompt_template = PromptTemplate(
-    input_variables=["statement", "class_individuals", "obj_properties", "data_properties"],
-    template=dl_queries_template
-    )
+sparql_queries_prompt_template = PromptTemplate(
+    input_variables=["statement", "class_individuals", "obj_properties", "data_properties", "prefix"],
+    template=sparql_queries_template
+)
 
-
-dl_queries_schema = Object(
-    id="dl_query_list",
-    description="A list of generated DL queries to prove or disprove the statement using the ontology.",
+sparql_queries_schema = Object(
+    id="sparql_query_list",
+    description="A list of generated SPARQL queries to prove or disprove the statement using the ontology.",
     attributes=[
-        Text(id="dl_query", description="A single DL query.", many=True)
+        Text(id="sparql_query", description="A single SPARQL query.", many=True)
     ],
-    many=True,  
+    many=True,
 )

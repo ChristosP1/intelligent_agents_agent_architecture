@@ -6,7 +6,7 @@ from typing import List, Dict, Union
 import owlready2
 
 # Files
-from llm_utils import initialize_llm, generate_synonyms, generate_dl_queries
+from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries
 from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items, precompute_or_load_embeddings
 from reddit_utils import RedditAPI
@@ -78,6 +78,7 @@ class Agent:
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
         
         self.dl_queries = List[str]
+        self.prefix = '<http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>'
 
         # ----------------------------- #
         
@@ -126,7 +127,7 @@ class Agent:
             print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
             print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
             
-            self.dl_queries = generate_dl_queries(self.llm, self.prompt.text, self.ontology_filtered)
+            self.dl_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
             
             print(f"- DL queries: {self.dl_queries}")
             
@@ -174,7 +175,7 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("A Wolf has averagelifespan of 100 years and concussion causes headaches")
+    test_prompt = Prompt("Animals that are not venomus")
     test_env.set_prompt(test_prompt)
 
     # Create an agent
