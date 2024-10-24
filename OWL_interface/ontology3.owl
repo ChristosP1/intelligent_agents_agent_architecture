@@ -1822,6 +1822,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Amnesia">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Psychological"/>
+        <intelligent_agents_ontology:resultsFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Concussion"/>
     </owl:NamedIndividual>
     
 
@@ -2150,6 +2151,7 @@
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Phosphorus"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Selenium"/>
         <intelligent_agents_ontology:hasNutrient rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB"/>
+        <intelligent_agents_ontology:isEatenBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Human"/>
         <intelligent_agents_ontology:isPoisonous rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isPoisonous>
     </owl:NamedIndividual>
     
@@ -2442,6 +2444,7 @@
         <intelligent_agents_ontology:hasSymptom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fatigue"/>
         <intelligent_agents_ontology:hasSymptom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Headache"/>
         <intelligent_agents_ontology:hasSymptom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nausea"/>
+        <intelligent_agents_ontology:isCausedBy rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Football"/>
         <intelligent_agents_ontology:shouldVisitDoctor rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:shouldVisitDoctor>
         <rdfs:label>Concussion</rdfs:label>
     </owl:NamedIndividual>
@@ -2650,6 +2653,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fatigue">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
+        <intelligent_agents_ontology:resultsFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Concussion"/>
     </owl:NamedIndividual>
     
 
@@ -2822,6 +2826,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Headache">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Pain"/>
+        <intelligent_agents_ontology:resultsFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Concussion"/>
     </owl:NamedIndividual>
     
 
@@ -3272,6 +3277,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Nausea">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
+        <intelligent_agents_ontology:resultsFrom rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Concussion"/>
     </owl:NamedIndividual>
     
 
@@ -3392,6 +3398,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Omega3">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Fats"/>
+        <intelligent_agents_ontology:isPresentIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Bullfrog"/>
     </owl:NamedIndividual>
     
 
@@ -3858,6 +3865,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Selenium">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Minerals"/>
+        <intelligent_agents_ontology:isPresentIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Bullfrog"/>
     </owl:NamedIndividual>
     
 
@@ -4177,6 +4185,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#VitaminB">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Vitamin"/>
+        <intelligent_agents_ontology:isPresentIn rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Bullfrog"/>
     </owl:NamedIndividual>
     
 
