@@ -110,6 +110,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#canLimit -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#canLimit">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BodyPart"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesHealthCondition -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#causesHealthCondition">
@@ -145,9 +154,19 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasAnimal">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <owl:inverseOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isLocatedIn"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Geography"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
         <rdfs:label>hasAnimal</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCookingMethod -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasCookingMethod">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#WithinFood"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Food"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#CookingMethod"/>
     </owl:ObjectProperty>
     
 
@@ -306,7 +325,7 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#isLocatedIn">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#BetweenAnimalsAndLocation"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Animal"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Country"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Location"/>
         <rdfs:label>isLocatedIn</rdfs:label>
     </owl:ObjectProperty>
     
@@ -584,18 +603,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDuration -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasDuration">
-        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutSport"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Sport"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <rdfs:comment>Common duration of a sport or exercise.</rdfs:comment>
-        <rdfs:label>hasDuration</rdfs:label>
-    </owl:DatatypeProperty>
-    
-
-
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasFatContent -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasFatContent">
@@ -649,7 +656,6 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#hasRecoveryTime">
         <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AboutHealth"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Symptom"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
         <rdfs:comment>Typical recovery time from a health condition (days).</rdfs:comment>
         <rdfs:label>hasRecoveryTime</rdfs:label>
@@ -737,6 +743,9 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cardiovascular"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
         <rdfs:label>Allergy</rdfs:label>
     </owl:Class>
     
@@ -843,6 +852,10 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Cardiovascular">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Chronic"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Deficiency"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
         <rdfs:label>Cardiovascular</rdfs:label>
     </owl:Class>
     
@@ -950,6 +963,12 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Deficiency">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DrugAllergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
         <rdfs:label>Deficiency</rdfs:label>
     </owl:Class>
     
@@ -977,6 +996,8 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DrugAllergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy"/>
         <rdfs:label>Disease</rdfs:label>
     </owl:Class>
     
@@ -995,6 +1016,8 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#DrugAllergy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
         <rdfs:label>DrugAllergy</rdfs:label>
     </owl:Class>
     
@@ -1030,6 +1053,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#FoodAllergy">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Allergy"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury"/>
         <rdfs:label>FoodAllergy</rdfs:label>
     </owl:Class>
     
@@ -1101,6 +1125,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Infectious">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Disease"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
         <rdfs:label>Infectious</rdfs:label>
     </owl:Class>
     
@@ -1110,6 +1135,7 @@
 
     <owl:Class rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Injury">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#MedicalCondition"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Respiratory"/>
         <rdfs:label>Injury</rdfs:label>
     </owl:Class>
     
@@ -1719,7 +1745,6 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#StrengthBasedRepetitiveNonContact"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Abs"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">350</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#AbsWorkout"/>
@@ -2093,7 +2118,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Pecks"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tricep"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Boxing</rdfs:label>
@@ -2476,7 +2500,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hamstring"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">600</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Cycling</rdfs:label>
@@ -2606,7 +2629,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#ExerciseTherapy">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PhysicalTherapy"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">200</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">45</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasHeartRateIncrease>
         <rdfs:label>ExerciseTherapy</rdfs:label>
     </owl:NamedIndividual>
@@ -2673,7 +2695,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hamstring"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Football</rdfs:label>
@@ -2859,7 +2880,7 @@
     <!-- http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Human -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Human">
-        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Predator"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Mammal"/>
         <intelligent_agents_ontology:hasDiet rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Bullfrog"/>
     </owl:NamedIndividual>
     
@@ -2870,7 +2891,6 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hydrotherapy">
         <rdf:type rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#PhysicalTherapy"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">200</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">45</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasHeartRateIncrease>
         <rdfs:label>Hydrotherapy</rdfs:label>
     </owl:NamedIndividual>
@@ -3703,7 +3723,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Calves"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hamstring"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>RockClimbing</rdfs:label>
@@ -3723,7 +3742,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hamstring"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">80</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">70</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Rugby</rdfs:label>
@@ -3741,7 +3759,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Hamstring"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">700</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Running</rdfs:label>
@@ -4237,7 +4254,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tricep"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">50</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Volleyball</rdfs:label>
@@ -4266,7 +4282,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Lats"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tricep"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Weightlifting</rdfs:label>
@@ -4303,7 +4318,6 @@
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Quads"/>
         <intelligent_agents_ontology:trainsBodyPart rdf:resource="http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#Tricep"/>
         <intelligent_agents_ontology:caloriesBurnedPerHour rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">500</intelligent_agents_ontology:caloriesBurnedPerHour>
-        <intelligent_agents_ontology:hasDuration rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasDuration>
         <intelligent_agents_ontology:hasHeartRateIncrease rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60</intelligent_agents_ontology:hasHeartRateIncrease>
         <intelligent_agents_ontology:isTeamSport rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</intelligent_agents_ontology:isTeamSport>
         <rdfs:label>Wrestling</rdfs:label>
