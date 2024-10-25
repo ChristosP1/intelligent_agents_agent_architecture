@@ -4,6 +4,9 @@
 # simulations. The former might be of use here though.
 from typing import List, Dict, Union
 import owlready2
+from OWL_interface import OWLInterface
+import os
+
 
 # Files
 from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries
@@ -61,6 +64,8 @@ class Agent:
     # TODO: Massive work in progress, needs more logic.
     def __init__(self, env: Env):
         self.llm = initialize_llm()
+        ontology_path = os.getcwd() + "\\ontology3.owl"
+        self.owl_interface = OWLInterface(ontology_path)
         
         self.reddit_api = RedditAPI()
         
@@ -77,7 +82,7 @@ class Agent:
         # self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
         
-        self.dl_queries = List[str]
+        self.sparql_queries = List[str]
         self.prefix = '<http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>'
 
         # ----------------------------- #
@@ -127,9 +132,9 @@ class Agent:
             print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
             print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
             
-            self.dl_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
+            self.sparql_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
             
-            print(f"- DL queries: {self.dl_queries}")
+            print(f"- DL queries: {self.sparql_queries}")
             
             self.state = 2
         # --------------------------------------------------------------------------------------------#
@@ -139,8 +144,8 @@ class Agent:
             # Use self.variedprompt?
             if self.sourceidx <= len(self.env.sources):
                 print("Query ontology")
-                outcome = None # TODO: Query the ontology.
-                self.truthval = None # TODO: Explicitely obtain truth value from query
+                outcome = self.owl_interface.query_ontology(self.sparql_queries) # TODO: Query the ontology.
+                self.truthval = None # TODO: Explicitely obtain truth value from query ? the outcome variable is a list of results including multiple true/false values
                 self.answer = None  # TODO: Obtain an answer from the query
                 self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
                 self.state = 3

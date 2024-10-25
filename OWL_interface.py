@@ -12,9 +12,16 @@ class OWLInterface:
 
 
     def query_ontology(self, queries):
-        # Print all instances of Symptom and their resultsFrom property
-        # print(self.ontology.search(is_a=self.ontology.Symptom, resultsFrom=self.ontology.search(is_a=self.ontology.Concussion)))
+        """
+        Function that takes SPARQL queries and uses them to query the ontology.
 
+        Args:
+            A list of SPARQL queries in string format.
+
+        Returns:
+            A list of the results for each query. For each query all the instances are returned. If the list
+            has elements it starts with "true", if it doesn't it starts with "false".
+        """
         results = []
         for query in queries:
             instances = list(default_world.sparql(query))

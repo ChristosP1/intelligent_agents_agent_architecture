@@ -8,7 +8,7 @@ def main():
     # One example query unrelated to any of our scenarios
     example_query = ["""
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-        
+
             SELECT ?recipe
             WHERE {
               ?recipe a ex:Recipe;
@@ -21,7 +21,7 @@ def main():
     scenario1 = [
             """
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-            
+
             SELECT ?condition
             WHERE {
               ?condition a/rdfs:subClassOf* ex:Dehydration;
@@ -32,7 +32,7 @@ def main():
         ,
             """
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-            
+
             SELECT ?injury
             WHERE {
               ?injury a/rdfs:subClassOf* ex:Injury;
@@ -69,7 +69,7 @@ def main():
     scenario2 = [
             """
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-    
+
             SELECT ?frogAndToad
             WHERE {
               ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad;
@@ -107,7 +107,7 @@ def main():
     scenario3 = [
             """
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-            
+
             SELECT ?location
             WHERE {
               ?location a/rdfs:subClassOf* ex:Location;
@@ -131,7 +131,7 @@ def main():
             """
             PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
             PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-            
+
             SELECT ?sport
             WHERE {
               ?sport a/rdfs:subClassOf* ex:RepetitiveNonContact ;
