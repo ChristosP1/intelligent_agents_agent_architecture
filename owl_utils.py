@@ -46,17 +46,16 @@ def find_ontology_entities(owl_path: str):
         # 3. Dictionary of object properties with their domain and range
         obj_property_domain_range_dict = {}
         for obj_property in onto.object_properties():
-            domain = [dom.name for dom in obj_property.domain]  # Domain can be a list
-            range_ = [ran.name for ran in obj_property.range]    # Range can also be a list
+            domain = [dom for dom in obj_property.domain]  # Domain can be a list
+            range_ = [ran for ran in obj_property.range]    # Range can also be a list
             obj_property_domain_range_dict[obj_property.name] = [domain, range_]
         
         # 4. Dictionary of data properties and their domain
-        data_property_domain_dict = {}
+        data_property_domain_range_dict = {}
         for data_property in onto.data_properties():
             domain = [dom.name for dom in data_property.domain]
             range_ = [ran.__name__ if isinstance(ran, type) else str(ran) for ran in data_property.range]
-            data_property_domain_dict[data_property.name] = [domain, range_]
-        
+            data_property_domain_range_dict[data_property.name] = [domain, range_]
         # 5. List of all individuals' names in the ontology
         all_individuals_list = [individual.name for individual in onto.individuals()]
 
@@ -65,12 +64,12 @@ def find_ontology_entities(owl_path: str):
             "class_subclasses": class_subclasses_dict,
             "class_individuals": class_individuals_dict,
             "object_property_domain_range": obj_property_domain_range_dict,
-            "data_property_domain": data_property_domain_dict,
+            "data_property_domain_range": data_property_domain_range_dict,
             "all_individuals": all_individuals_list
         }
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurreddd: {e}")
         return {}
 
 
@@ -141,6 +140,44 @@ def is_similar(word: str, prop_name: str, word_embedding: np.ndarray, prop_embed
     
     return combined_similarity >= threshold
 
+
+def build_hierarchical_ontology(class_individuals_dict, class_subclasses_dict):
+    """
+    Builds a hierarchical structure for ontology data to help the LLM understand class-subclass relationships.
+    
+    Args:
+        class_individuals_dict: Dictionary mapping each class to its individuals.
+        class_subclasses_dict: Dictionary mapping each class to its subclasses.
+    
+    Returns:
+        A hierarchical dictionary representing the ontology.
+    """
+
+    def add_subclasses(class_name):
+        # Recursively build nested dictionary for each class and its subclasses
+        hierarchy = {
+            "individuals": class_individuals_dict.get(class_name, []),
+            "subclasses": {}
+        }
+        
+        # Add each subclass to the hierarchy, recursively building its structure
+        for subclass in class_subclasses_dict.get(class_name, []):
+            hierarchy["subclasses"][subclass] = add_subclasses(subclass)
+        
+        return hierarchy
+
+    # Build the hierarchy starting from top-level classes
+    hierarchical_ontology = {}
+    for class_name in class_individuals_dict:
+        if class_name not in class_subclasses_dict or all(
+            class_name not in sublist for sublist in class_subclasses_dict.values()
+        ):
+            # Add only top-level classes (no superclasses) to avoid duplicating entries
+            hierarchical_ontology[class_name] = add_subclasses(class_name)
+    
+    return hierarchical_ontology
+
+
     
 def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens: List[Tuple[str, str]], 
                                  ontology_data: Dict, ontology_embeddings):
@@ -157,7 +194,7 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     class_individuals_dict = ontology_data["class_individuals"]
     class_subclasses_dict = ontology_data["class_subclasses"]
     obj_property_domain_range_dict = ontology_data["object_property_domain_range"]
-    data_property_domain_dict = ontology_data["data_property_domain"]
+    data_property_domain_dict = ontology_data["data_property_domain_range"]
     
     # Unpack the precomputed embeddings
     class_embeddings = ontology_embeddings["class_embeddings"]
@@ -211,8 +248,9 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
         
     # Step 4: Compare words to data properties in data_property_domain_dict
     for word in statement_tokens:
-        word_embedding = get_embedding(word)  # Compute embedding for the dynamic input word
+        word_embedding = get_embedding(word)  # Compute embedding for the input word
         for data_prop_name, (domain, range_) in data_property_domain_dict.items():
+            print(data_prop_name)
             if data_prop_name in data_property_embeddings:  # Use precomputed embedding for the data property
                 data_prop_embedding = data_property_embeddings[data_prop_name]
                 if is_similar(word, data_prop_name, word_embedding, data_prop_embedding, threshold=0.4):  # Combine similarity
@@ -220,6 +258,8 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
                         data_properties.append(data_prop_name)
                     if domain[0] not in classes:
                         classes.append(domain[0]) 
+    
+    print(data_properties)
                         
     
     ### Final Step: Scan all individuals of relevant classes and gather their data properties
@@ -237,11 +277,37 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
 
     # Step 5: Filter the dictionaries based on collected classes and properties
     filtered_class_individuals = {cls: inds for cls, inds in class_individuals_dict.items() if cls in classes}
-    filtered_obj_properties = {prop: dom_rng for prop, dom_rng in obj_property_domain_range_dict.items() if prop in obj_properties}
-    filtered_data_properties = {data_prop: dom for data_prop, dom in data_property_domain_dict.items() if data_prop in data_properties}
+    filtered_class_subclasses = {
+        cls: [subclass for subclass in subclasses if subclass in classes]
+        for cls, subclasses in class_subclasses_dict.items()
+        if cls in classes
+    }
+    filtered_obj_properties = {obj_prop: [list(set(dom)), list(set(rng))] 
+                                for obj_prop, (dom, rng) in obj_property_domain_range_dict.items() if obj_prop in obj_properties}
 
+    filtered_data_properties = {data_prop: [list(set(dom)), list(set(rng))] 
+                                for data_prop, (dom, rng) in data_property_domain_dict.items() if data_prop in data_properties}
+
+    
+    # Deduplication Step: Remove subclass individuals from superclasses in filtered_class_individuals
+    for superclass, subclasses in class_subclasses_dict.items():
+        if superclass in filtered_class_individuals:
+            for subclass in subclasses:
+                if subclass in filtered_class_individuals:
+                    # Remove individuals in subclass from superclass
+                    filtered_class_individuals[superclass] = [
+                        ind for ind in filtered_class_individuals[superclass]
+                        if ind not in filtered_class_individuals[subclass]
+                    ]
+
+    hierarchical_ontology_filtered = build_hierarchical_ontology(filtered_class_individuals, filtered_class_subclasses)
+    print(hierarchical_ontology_filtered)
+    print(filtered_obj_properties)
+    print(filtered_data_properties)
+    
     return {
         "filtered_classes": filtered_class_individuals,
+        "hierarchical_ontology": hierarchical_ontology_filtered,
         "filtered_obj_properties": filtered_obj_properties,
         "filtered_data_properties": filtered_data_properties
     }
