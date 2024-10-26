@@ -37,85 +37,170 @@ synonyms_schema = Object(
 # ================================================= DL QUERIES ================================================= #
 
 sparql_queries_template = ''' 
-    You are an expert in SPARQL queries. You will take a user statement, and based on the given ontology 
-    (classes, individuals, object properties, and data properties), generate simple SPARQL queries to either 
-    prove or disprove the statement. 
+    You are an expert in SPARQL query construction. 
+    Your goal is to generate precise and specific SPARQL queries to answer user statements by retrieving 
+    exact information from the provided ontology. Avoid generalizations and focus on specificity.
+ 
 
-    The ontology is provided in three parts:
-    - **Classes and Individuals**: A dictionary where the keys are class names, and the values are lists of individuals that belong to the class.
-    - **Object Properties**: A dictionary where the keys are object properties, and the values are lists with the domain (class) and range (class).
-    - **Data Properties**: A dictionary where the keys are data properties, and the values are lists with the domain (class) and range (data type like integer, float, or string).
+    The ontology is structured with three main components:
+    1. **Hierarchical Ontology Structure**: This contains classes with nested subclasses and individuals, showing the hierarchy and which individuals belong to each class or subclass.
+    2. **Object Properties**: These connect instances or classes by establishing relationships. Each object property includes a *domain* and a *range*, defining the types of entities it connects.
+    3. **Data Properties**: These provide literal values for classes or individuals (e.g., integer, string, boolean values). Data properties use `FILTER` statements in SPARQL to filter literal values.
 
-    Your goal is to generate as few SPARQL queries as possible to check whether the statement can be proven using this ontology.
-    Ensure the queries use `rdfs:subClassOf*` where appropriate to retrieve both direct instances and instances from subclasses.
+ 
+    Your goal is to generate SPARQL queries to verify statements by determining relationships, properties, or class memberships. 
+    Based on the statement type, you may need to apply one of two methods:
 
-    ### Examples:
-    1. **Statement**: "Concussion can cause headaches."
-    - **Ontology**:
-        - Classes: {{"Concussion": ["Concussion"], "Symptom": ["Headache", "Nausea"]}}
-        - Object Properties: {{"causesSymptom": ["Concussion", "Symptom"]}}
-        - Data Properties: {{}}
+    1. **Direct Assertion Method**: This method is used when verifying relationships or properties between specific individuals.
+        - **When to Use**: Apply this when the statement involves a direct relationship or property assertion between individual entities (e.g., “Carbonara has ingredient Bacon” or “Gecko is venomous”).
+        - **SPARQL Construction**: 
+        - Directly reference both individuals in the `WHERE` clause.
+        - Use `FILTER` statements where necessary to verify specific conditions on individual properties.
+
+    2. **Class-Based Method**: This method is applied when verifying relationships or properties at the class level, such as subclass relationships, retrieving instances based on class membership, or checking properties that apply to all instances of a class.
+        - **When to Use**: Apply this when the statement involves a generalization about classes or requests information based on class membership (e.g., “Reptiles are venomous” or “All frogs and toads are non-poisonous”).
+        - **SPARQL Construction**:
+        - Use `rdfs:subClassOf*` to query class hierarchies.
+        - Use `?variable a/rdfs:subClassOf*` in the `WHERE` clause for class-based filtering.
+        - Retrieve instances or properties that apply to all members of a class or subclass.
+
+    
+    ### Examples of Direct Assertion Method
+
+    #### 1. Verifying an Individual’s Relationship to Another Individual
+    - **Statement**: “Carbonara has ingredient Bacon.”
     - **SPARQL Query**:
-    ```sparql
-    PREFIX ex: {prefix}
-    
-    SELECT ?symptom
-    WHERE {{
-        ?symptom a/rdfs:subClassOf* ex:Symptom;
-                ex:resultsFrom ex:Concussion .
-    }}
-    ```
-    
-    2. **Statement**: "Lizards can live up to 200 years old."
-    - **Ontology**:
-        - Classes: {{"Lizard": ["Lizard"]}}
-        - Object Properties: {{}}
-        - Data Properties: {{"lifeExpectancy": ["Lizard", "integer"]}}
-    - **SPARQL Query**:
-    ```sparql
-    PREFIX ex: {prefix}
-    
-    SELECT ?lizard
-    WHERE {{
-    ?lizard a/rdfs:subClassOf* ex:Lizard;
-            ex:lifeExpectancy ?years .
-    FILTER (?years >= 200)
-    }}
-    ```
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?ingredient
+        WHERE {{
+            ex:Carbonara ex:hasIngredient ?ingredient .
+            FILTER(?ingredient = ex:Bacon)
+        }}
+        ```
 
-    3. **Statement**: "Dogs are carnivores."
-    - **Ontology**:
-        - Classes: {{"Dog": ["GoldenRetriever", "Bulldog"], "Diet": ["Carnivore"]}}
-        - Object Properties: {{"hasDiet": ["Dog", "Diet"]}}
-        - Data Properties: {{}}
+    #### 2. Checking an Individual’s Specific Boolean Property
+    - **Statement**: “Gecko is venomous.”
     - **SPARQL Query**:
-    ```sparql
-    PREFIX ex: {prefix}
-    
-    SELECT ?dog
-    WHERE {{
-    ?dog a/rdfs:subClassOf* ex:Dog;
-         ex:hasDiet ex:Carnivore .
-    }}
-    ```
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?isVenomous
+        WHERE {{ ex:Gecko ex:isVenomous ?isVenomous . }}
+        ```
 
+    #### 3. Filtering Data Properties for an Individual’s Attribute
+    - **Statement**: “Swimming burns more than 500 calories.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?sport
+        WHERE {{
+            ex:Swimming ex:caloriesBurnedPerHour ?calories .
+            FILTER(?calories > 500)
+        }}
+        ```
+
+    #### 4. Confirming an Individual’s Property Against a Specific Entity
+    - **Statement**: “Salmon has nutrient VitaminB12.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?nutrient
+        WHERE {{ 
+            ex:Salmon ex:hasNutrient ?nutrient . 
+            FILTER(?nutrient = ex:VitaminB12)
+        }}
+        
+    
+    #### 5. Validating an Object Property Relationship Between Two Individuals
+    - **Statement**: “Weightlifting trains bodypart Bicep.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?bodyPart
+        WHERE {{
+            ex:Weightlifting ex:trainsBodyPart ?bodyPart .
+            FILTER(?bodyPart = ex:Bicep)
+        }}
+        
+    ### Examples of Class-Based Method
+
+    #### 1. Retrieving All Instances of a Class Based on a Shared Property
+    - **Statement**: “Reptiles are venomous.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?reptile
+        WHERE {{
+            ?reptile a/rdfs:subClassOf* ex:Reptile ;
+                    ex:isVenomous = true .
+        }}
+        ```
+
+    #### 2. Validating Subclass Membership
+    - **Statement**: “Birds are animals.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?bird
+        WHERE {{ 
+            ?bird a/rdfs:subClassOf* ex:Animal . 
+        }}
+        ```
+        
+    #### 3. Confirming an Invalid Subclass Relationship
+    - **Statement**: “Birds are mammals.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+
+        SELECT ?bird
+        WHERE {{ 
+            ?bird a/rdfs:subClassOf* ex:Mammal . 
+        }}
+
+
+    #### 4. Verifying Property Constraints for All Instances in a Class
+    - **Statement**: “All frogs and toads are non-poisonous.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?frogAndToad
+        WHERE {{
+            ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad ;
+                        ex:isPoisonous = false .
+        }}
+        ```
+
+    #### 5. Identifying Class Instances Based on Contained Ingredients
+    - **Statement**: “List all desserts that contain Chocolate.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?dessert
+        WHERE {{
+            ?dessert a/rdfs:subClassOf* ex:Dessert ;
+                    ex:hasIngredient ex:Chocolate .
+        }}
+        ```    
+        
     Now, generate a list of SPARQL queries to prove or disprove the following statement:
 
     **User's Statement**: "{statement}"
 
     Here is the ontology:
-    - **Classes and Individuals**: {class_individuals}
+    - **Hierarchical ontology**: {hierarchical_ontology}
     - **Object Properties**: {obj_properties}
     - **Data Properties**: {data_properties}
     
     **Prefix**: {prefix}
 
-    Ensure to use `rdfs:subClassOf*` where applicable to include subclasses and relevant instances.
+    Ensure to use `rdfs:subClassOf*` only for classes to include subclasses and relevant instances.
     '''
     
     
 sparql_queries_prompt_template = PromptTemplate(
-    input_variables=["statement", "class_individuals", "obj_properties", "data_properties", "prefix"],
+    input_variables=["statement", "hierarchical_ontology", "obj_properties", "data_properties", "prefix"],
     template=sparql_queries_template
 )
 
