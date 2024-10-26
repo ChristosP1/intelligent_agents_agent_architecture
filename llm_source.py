@@ -82,7 +82,7 @@ class ChatGPT_API_Source:
         response = self.call_chatgpt_api(prompt)
         
         if response is None:
-            return {"real_information": False, "reason": "Unknown"}
+            return {"real_information": False, "reason": None }
 
         # Attempt to parse response as JSON using tolerantjson
         try:
@@ -91,11 +91,11 @@ class ChatGPT_API_Source:
             parsed_response = tolerate(cleaned_response)
         except Exception as e:
             print(f"Error in tolerant JSON parsing: {e}")
-            return {"real_information": False, "reason": "Unknown"}
+            return {"real_information": False, "reason": None }
 
         # Check if the required keys exist in parsed response
         if not isinstance(parsed_response, dict) or "real_information" not in parsed_response or "reason" not in parsed_response:
-            return {"real_information": False, "reason": "Unknown"}
+            return {"real_information": False, "reason": None }
 
         return parsed_response
 

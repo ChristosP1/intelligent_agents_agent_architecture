@@ -175,13 +175,15 @@ class RedditAPI:
         if best_post and best_similarity >= threshold:
             return {
                 'real_information': True,
-                'reason': f"Someone on Reddit said: Title: {best_post['title']}. Content: {best_post['content']}",
+                'reason': best_post['content'],
+                'reddit_title': best_post['title'],
                 'similarity': best_similarity
             }
         else:
             return {
                 'real_information': False,
-                'reason': f"Someone on Reddit said: Title: {best_post['title']}. Content: {best_post['content']}" if best_post else "No relevant posts found.",
+                'reason': best_post['content'] if best_post else None,
+                'reddit_title': best_post['title'] if best_post else None,
                 'similarity': best_similarity
             }
 
