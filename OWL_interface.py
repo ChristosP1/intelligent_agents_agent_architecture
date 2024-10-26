@@ -22,12 +22,26 @@ class OWLInterface:
             A list of the results for each query. For each query all the instances are returned. If the list
             has elements it starts with "true", if it doesn't it starts with "false".
         """
-        results = []
-        for query in queries:
-            instances = list(default_world.sparql(query))
-            result = [instance[0].name for instance in instances]
-            if result: result.insert(0,"True")
-            if not result: result.insert(0, "False")
-            results.append(result)
-
-        return results
+        try:
+            results = []
+            for query in queries:
+                print("Executing Query:\n", query)
+                instances = list(default_world.sparql(query))
+                print("Query Results:", instances)
+                
+                # Check if the result is a boolean query result (ASK query result)
+                if all(isinstance(item[0], bool) for item in instances):
+                    # If any `True` is found in the results, return True, else return False
+                    boolean_result = any(item[0] for item in instances)
+                    results.append(['True'] if boolean_result else ['False'])
+                else:
+                    # For non-boolean results, extract individual names as before
+                    result = list(set(instance[0].name for instance in instances if instance))
+                    if result:
+                        results.append(['True', result])  # Nest result in a list with 'True'
+                    else:
+                        results.append(['False'])
+            
+            return results
+        except:
+            return False
