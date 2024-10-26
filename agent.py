@@ -73,7 +73,7 @@ class Agent:
         self.prompt : Prompt = None
         
         # ---------- State 1 ---------- #
-        self.ontology_elements = find_ontology_entities('ontology3.owl')
+        self.ontology_elements = find_ontology_entities('ontology4.owl')
         self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
         self.ontology_embeddings = precompute_or_load_embeddings(self.ontology_elements, self.embeddings_path)
         self.tokenized_prompt : List[str] = []
@@ -81,7 +81,6 @@ class Agent:
         self.tokenized_prompt_with_synonyms : List[str] = []
         # self.ontology_elements: Dict[str, Union[Dict[str, List], List]] = {}
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
-        
         self.sparql_queries = List[str]
         self.prefix = '<http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>'
 
@@ -117,14 +116,15 @@ class Agent:
 
 
     def reason(self):
-        # ------------------------------------------ State 1------------------------------------------#
+        # ------------------------------------------ State 1 ------------------------------------------#
         if self.state == 1 and isinstance(self.prompt, Prompt):  # We have perceived a prompt.
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
 
+            print(f"- Ontology elements components {self.ontology_elements.keys()}")
             print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
             print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
-            print(f"- Data Properties: {len(self.ontology_elements['data_property_domain'])}")
+            print(f"- Data Properties: {len(self.ontology_elements['data_property_domain_range'])}")
             
             self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.ontology_embeddings)
             
@@ -135,6 +135,8 @@ class Agent:
             self.sparql_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
             
             print(f"- DL queries: {self.sparql_queries}")
+            
+            # print(self.ontology_filtered['filtered_classes'])
             
             self.state = 2
         # --------------------------------------------------------------------------------------------#

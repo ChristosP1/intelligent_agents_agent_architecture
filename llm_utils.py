@@ -29,7 +29,7 @@ def initialize_llm():
     # INITIALIZE LLM & OUTPUT PARSER #
     llm = ChatOpenAI(
         model="gpt-3.5-turbo", 
-        temperature=0.5,
+        temperature=0.2,
         max_tokens=4096,
         api_key=openai_api_key)
 
@@ -84,7 +84,24 @@ def generate_synonyms(llm, pos_tagged_words, synonyms_num=3):
     return output_list
 
 
-def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_retries=3):
+def convert_to_json_serializable(obj):
+    """
+    Helper function to recursively convert objects to JSON-serializable types.
+    - Attempts to convert unknown types by using `str()`.
+    - Handles lists, dictionaries, and nested structures recursively.
+    """
+    if isinstance(obj, list):
+        return [convert_to_json_serializable(item) for item in obj]
+    elif isinstance(obj, dict):
+        return {key: convert_to_json_serializable(value) for key, value in obj.items()}
+    try:
+        json.dumps(obj)  # Try serializing; if it fails, convert to string
+        return obj
+    except (TypeError, ValueError):
+        return str(obj)  # Convert non-serializable objects to strings
+
+
+def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_retries=4):
     """
     A function that takes the llm, the user statement, and the ontology elements, and generates SPARQL queries
     to prove or disprove the statement. It retries in case of structural errors.
@@ -97,15 +114,21 @@ def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_
     Returns:
         sparql_queries_output (list): A list of SPARQL queries
     """
-    
-    # Convert dictionaries to string format for prompt
-    class_individuals_str = json.dumps(ontology_filtered['filtered_classes'], indent=4)
-    obj_properties_str = json.dumps(ontology_filtered['filtered_obj_properties'], indent=4)
-    data_properties_str = json.dumps(ontology_filtered['filtered_data_properties'], indent=4)
-    
+
+    # Apply the conversion to make the entire dictionary JSON-serializable
+    ontology_filtered_serializable = {
+        "hierarchical_ontology": convert_to_json_serializable(ontology_filtered['hierarchical_ontology']),
+        "filtered_obj_properties": convert_to_json_serializable(ontology_filtered['filtered_obj_properties']),
+        "filtered_data_properties": convert_to_json_serializable(ontology_filtered['filtered_data_properties'])
+    }
+
+    # Convert dictionaries to JSON string format for the prompt
+    hierarchical_ontology_str = json.dumps(ontology_filtered_serializable['hierarchical_ontology'], indent=4)
+    obj_properties_str = json.dumps(ontology_filtered_serializable['filtered_obj_properties'], indent=4)
+    data_properties_str = json.dumps(ontology_filtered_serializable['filtered_data_properties'], indent=4)
     
     sparql_query_prompt = sparql_queries_prompt_template.format(statement=user_statement,
-                                                                class_individuals=class_individuals_str,
+                                                                hierarchical_ontology=hierarchical_ontology_str,
                                                                 obj_properties=obj_properties_str,
                                                                 data_properties=data_properties_str,
                                                                 prefix=prefix)
