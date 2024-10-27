@@ -8,6 +8,8 @@ from OWL_interface import OWLInterface
 import os
 
 
+from reasoning import Reasoner
+
 # Files
 from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries, generate_statement_answer, query_llm_for_answer
 from nlp import preprocess_text, cosine_similarity
@@ -104,6 +106,8 @@ class Agent:
         self.results: Dict = {}
 
         # ----------------------------- #
+        #self.reasoner = Reasoner(self.llm)
+
         self.answer_origin = None
         
         self.source : Source = None
@@ -225,6 +229,8 @@ class Agent:
                         print(f"Found Reddit information with similarity {similarity}")
                         self.truthval = "True" if real_info else "False"
                         self.answer = reason
+                        if self.reasoner is not None:
+                            self.answer = self.reasoner.reason(self.prompt.text, current_source)
                         self.results[self.prompt.text]['truthval'] = self.truthval
                         self.results[self.prompt.text]['source'] = "Reddit"
                         self.results[self.prompt.text]['answer'] = self.answer
@@ -265,7 +271,6 @@ class Agent:
                 print("Statement", self.prompt.text)
                 print("Truth value", self.truthval)
                 print("Answer", self.answer)
-                
             
             self.state = 5
         # ------------------------------------------ State 5 ------------------------------------------#
