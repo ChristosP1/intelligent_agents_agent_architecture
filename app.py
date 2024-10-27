@@ -15,6 +15,7 @@ statements = [
     "Some nutricients are present in frogsandtoads",
     "There are recipes that have ingredient some frogsandtoads",
     "There is some location that has animal shark and has sport volleyball.",
+    "Is there some vegetarian dish that has an ingredient that is Animal Seafood or Meat and is eaten by sharks",
     "There are animals that are locatedin Amazon and have diet humans.",
     "Swimming is repetitivenoncontact sport and the caloriesburnedperhour are more than 500",
 ]
@@ -45,7 +46,7 @@ scenario_description = {
 if selected_scenario == scenarios[0]:
     st.markdown("#### Description:")
     st.write(scenario_description["injury_of_dehydration"])
-    scenario_statements = statements[:5] 
+    scenario_statements = statements[:4] 
     st.markdown("#### Scenario statements:")
     st.write(scenario_statements)
 elif selected_scenario == scenarios[1]:
