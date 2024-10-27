@@ -13,7 +13,7 @@ from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries
 from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items, precompute_or_load_embeddings
 from reddit_utils import RedditAPI
-
+from llm_source import ChatGPT_API_Source
 
 
 class Prompt:
@@ -36,7 +36,24 @@ class Env:
         self.agents = []
         self.prompt = None
         self.sources = []
+        
+        self.reddit_api = RedditAPI()
+        self.llm_source = ChatGPT_API_Source()
 
+    def get_source(self, in_prompt: Prompt):
+        self.prompt =in_prompt
+        
+        tmp2 = self.reddit_api.evaluate_normative_statement(self.prompt.text, 40 , 20 ,0.35 )
+        self.sources.append(tmp2) 
+        
+        tmp = self.llm_source.evaluate_normative_statement(self.prompt.text)            
+        self.sources.append(tmp)     
+        return
+    
+        
+        
+        
+        
     def step(self):
         for a in self.agents:
             a.perceive()
@@ -66,11 +83,12 @@ class Agent:
         self.llm = initialize_llm()
         ontology_path = os.getcwd() + "\\ontology3.owl"
         self.owl_interface = OWLInterface(ontology_path)
-        
-        self.reddit_api = RedditAPI()
+                
         
         self.env : Env = env
         self.prompt : Prompt = None
+        self.enV_get : bool = False
+        
         
         # ---------- State 1 ---------- #
         self.ontology_elements = find_ontology_entities('ontology4.owl')
@@ -109,6 +127,10 @@ class Agent:
                 print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
+            if self.enV_get == False:
+                self.env.get_source(self.prompt)
+                self.enV_get = True
+            
             if len(self.env.sources) > 0:
                 self.source = self.env.sources[self.sourceidx]
             else:  # Fallback scenario in case if all sources have been exhausted.
@@ -154,6 +176,28 @@ class Agent:
         elif self.state == 3:  # We are currently querying external sources and have obtained one (hopefully)
             # TODO: Query the text for a truth value?
             # TODO: Turn the text into an ontology query?
+            current_sorce = self.env.sources.pop(0)
+
+            
+            if current_sorce["cosine_similarity"] > 0.5:
+                if current_sorce["true_information"]:
+                    self.answer = "True"
+                    self.explanation = current_sorce["reason"]
+                else:
+                    self.answer = "False"
+                    self.explanation = current_sorce["reason"]
+            else:
+                current_sorce = self.env.sources.pop(0)
+                if current_sorce["true_information"]:
+                    self.answer = "True"
+                    self.explanation = current_sorce["reason"]
+                else:
+                    self.answer = "False"
+                    self.explanation = current_sorce["reason"]
+
+                
+            
+        
             self.state = 4  # We can now start comparing the internal source to the external source.
         elif self.state == 4:  # Comparison of sources
             # TODO: Source comparison
