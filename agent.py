@@ -9,11 +9,12 @@ import os
 
 
 # Files
-from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries
+from llm_utils import initialize_llm, generate_synonyms, generate_sparql_queries, generate_statement_answer, query_llm_for_answer
 from nlp import preprocess_text, cosine_similarity
 from owl_utils import find_ontology_entities, find_relevant_ontology_items, precompute_or_load_embeddings
 from reddit_utils import RedditAPI
 from llm_source import ChatGPT_API_Source
+
 
 
 class Prompt:
@@ -39,21 +40,17 @@ class Env:
         
         self.reddit_api = RedditAPI()
         self.llm_source = ChatGPT_API_Source()
-
+        
     def get_source(self, in_prompt: Prompt):
         self.prompt =in_prompt
         
-        tmp2 = self.reddit_api.evaluate_normative_statement(self.prompt.text, 40 , 20 ,0.35 )
+        tmp2 = self.reddit_api.evaluate_normative_statement(self.prompt.text, 15 , 5 ,0.35 )
         self.sources.append(tmp2) 
         
         tmp = self.llm_source.evaluate_normative_statement(self.prompt.text)            
         self.sources.append(tmp)     
         return
-    
-        
-        
-        
-        
+
     def step(self):
         for a in self.agents:
             a.perceive()
@@ -83,15 +80,15 @@ class Agent:
         self.llm = initialize_llm()
         ontology_path = os.getcwd() + "\\ontology3.owl"
         self.owl_interface = OWLInterface(ontology_path)
-                
+        
+        self.reddit_api = RedditAPI()
         
         self.env : Env = env
         self.prompt : Prompt = None
         self.enV_get : bool = False
         
-        
         # ---------- State 1 ---------- #
-        self.ontology_elements = find_ontology_entities('ontology4.owl')
+        self.ontology_elements = find_ontology_entities('ontology3.owl')
         self.embeddings_path = 'embeddings/ontology_embeddings.pkl'
         self.ontology_embeddings = precompute_or_load_embeddings(self.ontology_elements, self.embeddings_path)
         self.tokenized_prompt : List[str] = []
@@ -101,8 +98,13 @@ class Agent:
         self.ontology_filtered: Dict[str, Dict[str, List]] = {} 
         self.sparql_queries = List[str]
         self.prefix = '<http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>'
+        
+        # ---------- State 2 ---------- #
+        self.outcome = list()
+        self.results: Dict = {}
 
         # ----------------------------- #
+        self.answer_origin = None
         
         self.source : Source = None
         self.sourceidx : int = 0
@@ -117,6 +119,34 @@ class Agent:
         self.truthval = None
         self.answer = ""
         self.explanation = ""
+        
+        
+    def process_multiple_prompts(self, prompts: List[str]) -> Dict[str, dict]:
+        for prompt_text in prompts:
+            # Set the prompt text and process as usual
+            self.prompt = Prompt(prompt_text)
+            self.state = 1  # Reset to state 1 for each prompt
+            
+            # Process State 1
+            self.perceive()
+            self.reason()  # Runs the ontology reduction and SPARQL generation
+            
+            # Process State 2 (query ontology)
+            self.perceive()
+            self.reason()  # Queries the ontology
+            
+            # Save the results for this prompt
+            self.results[prompt_text] = {
+                "prompt_text": prompt_text,
+                "source": "ontology",
+                "query": self.sparql_queries,
+                "outcome": self.outcome,
+                "truthval": self.truthval if self.truthval is not None else "Not determined",
+                "answer": self.answer if self.answer else "No answer",
+            }
+                    
+        return self.results
+    
     
     def ontology_source_utility(self, source: Source) -> float:
         return cosine_similarity(self.answer, source.info)
@@ -127,7 +157,7 @@ class Agent:
                 print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
-            if self.enV_get == False:
+            if self.truthval in ["Not determined", None] and not self.enV_get:
                 self.env.get_source(self.prompt)
                 self.enV_get = True
             
@@ -156,52 +186,89 @@ class Agent:
             
             self.sparql_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
             
-            print(f"- DL queries: {self.sparql_queries}")
+            # print(f"- SPARQL queries: {self.sparql_queries}")
             
             # print(self.ontology_filtered['filtered_classes'])
             
             self.state = 2
-        # --------------------------------------------------------------------------------------------#
 
+        # ------------------------------------------ State 2 ------------------------------------------#
         elif self.state == 2:  # We are currently processing our ontology internally.
             # TODO: We need to get a DL query here for the ontology!
             # Use self.variedprompt?
             if self.sourceidx <= len(self.env.sources):
                 print("Query ontology")
-                outcome = self.owl_interface.query_ontology(self.sparql_queries) # TODO: Query the ontology.
-                self.truthval = None # TODO: Explicitely obtain truth value from query ? the outcome variable is a list of results including multiple true/false values
-                self.answer = None  # TODO: Obtain an answer from the query
+                self.outcome = self.owl_interface.query_ontology(self.sparql_queries) # TODO: Query the ontology.
+                # print(self.outcome)
+                if self.outcome:
+                    self.truthval = self.outcome[0][0]
+                # except:
+                #     self.truthval = 'not found'
+                self.answer = generate_statement_answer(self.llm, self.prompt.text, self.truthval)
                 self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
                 self.state = 3
+        
+        # ------------------------------------------ State 3 ------------------------------------------#
+        # If the statement wasn't found in the ontology then search it on reddit
+        
         elif self.state == 3:  # We are currently querying external sources and have obtained one (hopefully)
-            # TODO: Query the text for a truth value?
-            # TODO: Turn the text into an ontology query?
-            current_sorce = self.env.sources.pop(0)
-
-            
-            if current_sorce["similarity"] > 0.5:
-                if current_sorce["true_information"]:
-                    self.answer = "True"
-                    self.explanation = current_sorce["reason"]
+            print("Lets query Reddit")
+        
+            if self.truthval in ["Not determined", None] and self.env.sources:
+                current_source = self.env.sources.pop(0)
+                if "similarity" in current_source:
+                    similarity = current_source["similarity"]
+                    real_info = current_source["real_information"]
+                    reason = current_source["reason"]
+                    
+                    if similarity > 0.5:
+                        print(f"Found Reddit information with similarity {similarity}")
+                        self.truthval = "True" if real_info else "False"
+                        self.answer = reason
+                        self.results[self.prompt.text]['truthval'] = self.truthval
+                        self.results[self.prompt.text]['source'] = "Reddit"
+                        self.results[self.prompt.text]['answer'] = self.answer
+                    else:
+                        print(f"No reliable information from Reddit (similarity: {similarity})")
                 else:
-                    self.answer = "False"
-                    self.explanation = current_sorce["reason"]
+                    print("No 'similarity' key in the source; skipping.")
+            elif self.truthval not in ["Not determined", None]:
+                print("Ontology provided a sufficient answer, or no sources are available.")
             else:
-                current_sorce = self.env.sources.pop(0)
-                if current_sorce["true_information"]:
-                    self.answer = "True"
-                    self.explanation = current_sorce["reason"]
-                else:
-                    self.answer = "False"
-                    self.explanation = current_sorce["reason"]
-
+                print("Problem")
+            
+            print("####################################")
+            # Log the final outcome
+            print("Final Statement:", self.prompt.text)
+            print("Truth Value:", self.truthval)
+            print("Answer:", self.answer)
+            print(self.results)
+        
+            self.state =4
+        # ------------------------------------------ State 4 ------------------------------------------#
+        # If the statement wasn't found on reddit then search in with openai
+                
+        elif self.state == 4:  
+            if self.truthval == 'Not determined' or self.truthval == None:
+                print("Querying OpenAI LLM as a fallback.")
+                # Call the function that performs the LLM query
+                llm_response = query_llm_for_answer(self.llm, self.prompt.text)
+                print(llm_response)
+                # Check the LLM response and update accordingly
+                if llm_response:
+                    self.truthval = llm_response['truth_value']
+                    self.answer = llm_response["response"]
+                    self.results[self.prompt.text]['truthval'] = self.truthval
+                    self.results[self.prompt.text]['source'] = "OpenAI"
+                    self.results[self.prompt.text]['answer'] = self.answer
+                
+                print("Statement", self.prompt.text)
+                print("Truth value", self.truthval)
+                print("Answer", self.answer)
                 
             
-        
-            self.state = 4  # We can now start comparing the internal source to the external source.
-        elif self.state == 4:  # Comparison of sources
-            # TODO: Source comparison
-            pass
+            self.state = 5
+        # ------------------------------------------ State 5 ------------------------------------------#
         elif self.state == 5:  # !: When we reach this state; do nothing. We reached the goal state already.
             self.state = 6  # Special terminal state that is not handled to prevent spamming the console
 
@@ -226,7 +293,7 @@ class Agent:
 if __name__=="__main__":
     # Test step 1
     test_env = Env()
-    test_prompt = Prompt("Animals that are not venomus")
+    test_prompt = Prompt("Animals that are venomous")
     test_env.set_prompt(test_prompt)
 
     # Create an agent

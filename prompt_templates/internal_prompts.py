@@ -123,6 +123,20 @@ sparql_queries_template = '''
             FILTER(?bodyPart = ex:Bicep)
         }}
         
+        
+    #### 6. Retrieving Recipes with Specific Ingredients Including Subclasses
+    - **Statement**: “There are recipes that have ingredient some frogsandtoads.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?recipe
+        WHERE {{
+            ?recipe a ex:Recipe ;
+                    ex:hasIngredient ?ingredient .
+            ?ingredient a/rdfs:subClassOf* ex:FrogAndToad .
+        }}
+    
+
     ### Examples of Class-Based Method
 
     #### 1. Retrieving All Instances of a Class Based on a Shared Property
@@ -133,7 +147,8 @@ sparql_queries_template = '''
         SELECT ?reptile
         WHERE {{
             ?reptile a/rdfs:subClassOf* ex:Reptile ;
-                    ex:isVenomous = true .
+                    ex:isVenomous ?isVenomous .
+            FILTER(?isVenomous = true)
         }}
         ```
 
@@ -142,9 +157,10 @@ sparql_queries_template = '''
     - **SPARQL Query**:
         ```sparql
         PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
-        SELECT ?bird
-        WHERE {{ 
-            ?bird a/rdfs:subClassOf* ex:Animal . 
+        SELECT ?birdSubclass
+        WHERE {{
+            ?birdSubclass a/rdfs:subClassOf* ex:Bird .
+            ?birdSubclass a/rdfs:subClassOf* ex:Animal .
         }}
         ```
         
@@ -154,25 +170,52 @@ sparql_queries_template = '''
         ```sparql
         PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
 
-        SELECT ?bird
-        WHERE {{ 
-            ?bird a/rdfs:subClassOf* ex:Mammal . 
+        SELECT ?birdInstance
+        WHERE {{
+            ?birdInstance a/rdfs:subClassOf* ex:Bird .
+            ?birdInstance a/rdfs:subClassOf* ex:Mammal .
         }}
 
 
-    #### 4. Verifying Property Constraints for All Instances in a Class
-    - **Statement**: “All frogs and toads are non-poisonous.”
+    #### 4. Property Filtering for Class Members with Data Properties
+    - **Statement**: "There are frogs and toads that are not poisonous and are eaten by humans."
     - **SPARQL Query**:
         ```sparql
         PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        
         SELECT ?frogAndToad
         WHERE {{
             ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad ;
-                        ex:isPoisonous = false .
+                        ex:isEatenBy ex:Human ;
+                        ex:isPoisonous ?isPoisonous .
+            FILTER(?isPoisonous = false)
         }}
         ```
+    - **Explanation**:
+        - Use the **Direct Assertion Method** with `FILTER` for the data property `isPoisonous`.
+        - When querying literal values (e.g., boolean, integer), retrieve the data property as a variable (e.g., `?isPoisonous`) and filter it using `FILTER(?isPoisonous = false)`.
+        - This approach ensures that only frogs and toads that are **not** poisonous and are eaten by humans are returned, aligning with the statement’s requirements.
 
-    #### 5. Identifying Class Instances Based on Contained Ingredients
+
+    #### 5. Object Property with Reversed Order
+    - **Statement**: "Some nutrients are present in frogs and toads."
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        
+        SELECT ?nutrient
+        WHERE {{
+            ?nutrient ex:isPresentIn ?frogAndToad .
+            ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad .
+        }}
+        ```
+    - **Explanation**:
+        - This query aims to find instances of nutrients that are present in any frogs and toads.
+        - **Object Property Ordering**: Since the statement asks if "nutrients are present in frogs and toads," the nutrient should be the subject, followed by the `isPresentIn` property with `?frogAndToad` as the object.
+        - The class hierarchy for `FrogAndToad` is included using `a/rdfs:subClassOf* ex:FrogAndToad`, allowing the query to return any nutrients related to `FrogAndToad` and its subclasses.
+
+
+    #### 6. Identifying Class Instances Based on Contained Ingredients
     - **Statement**: “List all desserts that contain Chocolate.”
     - **SPARQL Query**:
         ```sparql

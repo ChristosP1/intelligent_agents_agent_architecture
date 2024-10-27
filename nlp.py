@@ -1,4 +1,3 @@
-"""NLP Module used to turn prompts into queries."""
 import nltk
 import string
 import math

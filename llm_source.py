@@ -95,8 +95,8 @@ class ChatGPT_API_Source:
 
         # Check if the required keys exist in parsed response
         if not isinstance(parsed_response, dict) or "real_information" not in parsed_response or "reason" not in parsed_response:
-            return {"real_information": False, "reason": None, "similarity": 1 }
-        parsed_response["similarity"] = 1
+            return {"real_information": False, "reason": None }
+
         return parsed_response
 
 # Example usage

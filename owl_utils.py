@@ -93,7 +93,7 @@ def precompute_ontology_embeddings(ontology_data: Dict) -> Dict:
     class_individuals_dict = ontology_data["class_individuals"]
     class_subclasses_dict = ontology_data["class_subclasses"]
     obj_property_domain_range_dict = ontology_data["object_property_domain_range"]
-    data_property_domain_dict = ontology_data["data_property_domain"]
+    data_property_domain_dict = ontology_data["data_property_domain_range"]
     
     # Precompute embeddings and store them in dictionaries
     class_embeddings = {class_name: embeddings_model.embed_query(class_name) for class_name in class_subclasses_dict.keys()}
@@ -113,10 +113,8 @@ def precompute_ontology_embeddings(ontology_data: Dict) -> Dict:
 def precompute_or_load_embeddings(ontology_data: Dict, embeddings_filepath: str) -> Dict:
     # Check if the embeddings file exists
     if os.path.exists(embeddings_filepath):
-        print("Loading precomputed embeddings from file...")
         return load_embeddings_from_file(embeddings_filepath)
     else:
-        print("Precomputing embeddings...")
         # Precompute embeddings for ontology
         embeddings = precompute_ontology_embeddings(ontology_data)
         # Save embeddings to file
@@ -195,7 +193,7 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
     class_subclasses_dict = ontology_data["class_subclasses"]
     obj_property_domain_range_dict = ontology_data["object_property_domain_range"]
     data_property_domain_dict = ontology_data["data_property_domain_range"]
-    
+        
     # Unpack the precomputed embeddings
     class_embeddings = ontology_embeddings["class_embeddings"]
     individual_embeddings = ontology_embeddings["individual_embeddings"]
@@ -239,28 +237,43 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
                 if is_similar(word, prop_name, word_embedding, prop_embedding, threshold=0.4):  # Combine similarity
                     if prop_name not in obj_properties:
                         obj_properties.append(prop_name)
-                    if domain[0] not in classes:
-                        classes.append(domain[0])
-                    if range_[0] not in classes:
-                        classes.append(range_[0])
-
-                    
+                    if isinstance(domain, list) and isinstance(range_, list):
+                        try:
+                            if domain[0] not in classes:
+                                classes.append(domain[0])
+                            if range_[0] not in classes:
+                                classes.append(range_[0])
+                        except:
+                            continue
+                    else:
+                        if domain not in classes:
+                            classes.append(domain)
+                        if range_ not in classes:
+                            classes.append(range_)
         
     # Step 4: Compare words to data properties in data_property_domain_dict
     for word in statement_tokens:
         word_embedding = get_embedding(word)  # Compute embedding for the input word
         for data_prop_name, (domain, range_) in data_property_domain_dict.items():
-            print(data_prop_name)
             if data_prop_name in data_property_embeddings:  # Use precomputed embedding for the data property
                 data_prop_embedding = data_property_embeddings[data_prop_name]
                 if is_similar(word, data_prop_name, word_embedding, data_prop_embedding, threshold=0.4):  # Combine similarity
                     if data_prop_name not in data_properties:
                         data_properties.append(data_prop_name)
-                    if domain[0] not in classes:
-                        classes.append(domain[0]) 
-    
-    print(data_properties)
-                        
+                    if isinstance(domain, list) and isinstance(range_, list):
+                        try:
+                            if domain[0] not in classes:
+                                classes.append(domain[0])
+                            if range_[0] not in classes:
+                                classes.append(range_[0])
+                        except:
+                            continue
+                    else:
+                        if domain not in classes:
+                            classes.append(domain)
+                        if range_ not in classes:
+                            classes.append(range_) 
+                            
     
     ### Final Step: Scan all individuals of relevant classes and gather their data properties
     for class_name in classes:
@@ -301,9 +314,6 @@ def find_relevant_ontology_items(statement_tokens: List[str], pos_tagged_tokens:
                     ]
 
     hierarchical_ontology_filtered = build_hierarchical_ontology(filtered_class_individuals, filtered_class_subclasses)
-    print(hierarchical_ontology_filtered)
-    print(filtered_obj_properties)
-    print(filtered_data_properties)
     
     return {
         "filtered_classes": filtered_class_individuals,
@@ -322,9 +332,9 @@ if __name__ == "__main__":
     # print("\n\n\n\n\n")
     # print(f"Classes and individuals: {ontology_data['class_individuals']}")
     # print("\n\n\n\n\n")
-    print(f"Object properties with domain and range: {ontology_data['object_property_domain_range']}")
-    print("\n\n\n\n\n")
-    print(f"Data properties with domain: {ontology_data['data_property_domain']}")
+    # print(f"Object properties with domain and range: {ontology_data['object_property_domain_range']}")
+    # print("\n\n\n\n\n")
+    # print(f"Data properties with domain: {ontology_data['data_property_domain']}")
     # print("\n\n\n\n\n")
     # print(f"All individuals: {ontology_data['all_individuals']}")
 

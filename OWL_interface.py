@@ -25,9 +25,7 @@ class OWLInterface:
         try:
             results = []
             for query in queries:
-                print("Executing Query:\n", query)
                 instances = list(default_world.sparql(query))
-                print("Query Results:", instances)
                 
                 # Check if the result is a boolean query result (ASK query result)
                 if all(isinstance(item[0], bool) for item in instances):

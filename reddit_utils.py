@@ -182,9 +182,9 @@ class RedditAPI:
         else:
             return {
                 'real_information': False,
-                'reason': best_post['content'] if best_post else None,
-                'reddit_title': best_post['title'] if best_post else None,
-                'similarity': best_similarity
+                'reason': best_post['content'] if best_post else "No relevant content found.",
+                'reddit_title': best_post['title'] if best_post else "No relevant post title found.",
+                'similarity': best_similarity  # Always include similarity, even if no relevant match was found
             }
 
 if __name__ == "__main__":
@@ -201,5 +201,5 @@ if __name__ == "__main__":
     normative_statement = "Drinking water helps with headaches."
 
     # Evaluate the statement by searching Reddit
-    best_match = reddit_api.evaluate_normative_statement(normative_statement, 25 , 15 ,0.35 )
+    best_match = reddit_api.evaluate_normative_statement(normative_statement, 15 , 5 ,0.35 )
     print(best_match)

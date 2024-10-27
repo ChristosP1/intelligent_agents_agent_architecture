@@ -14,6 +14,11 @@ from prompt_templates.internal_prompts import(synonyms_prompt_template,
                                               sparql_queries_prompt_template,
                                               sparql_queries_schema)
 
+from prompt_templates.external_prompts import (statement_answer_prompt_template,
+                                               statement_response_schema,
+                                               truth_statement_prompt_template,
+                                               truth_statement_schema)
+
 
 def initialize_llm():
     """
@@ -101,7 +106,7 @@ def convert_to_json_serializable(obj):
         return str(obj)  # Convert non-serializable objects to strings
 
 
-def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_retries=4):
+def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_retries=6):
     """
     A function that takes the llm, the user statement, and the ontology elements, and generates SPARQL queries
     to prove or disprove the statement. It retries in case of structural errors.
@@ -154,4 +159,83 @@ def generate_sparql_queries(llm, user_statement, ontology_filtered, prefix, max_
     
     # If it fails after all retries
     raise ValueError("Failed to generate valid SPARQL queries after multiple retries.")
+    
+    
+def generate_statement_answer(llm, statement, truth_value, max_retries=3):
+    """
+    Generates a concise response based on the given statement and truth value.
+
+    Args:
+        statement (str): The input statement to evaluate.
+        truth_value (str): The truth value of the statement, which can be 'True', 'False', or 'Not Found'.
+
+    Returns:
+        str: The generated response.
+    """
+    # Create the prompt
+    prompt = statement_answer_prompt_template.format(statement=statement, truth_value=truth_value)
+    
+    # Initialize the extraction chain with a predefined schema
+    extraction_chain = create_extraction_chain(
+        llm, 
+        statement_response_schema,  # Define this schema similar to `synonyms_schema`
+        encoder_or_encoder_class="json"
+    )
+    
+    # Attempt extraction with retry mechanism
+    retries = 0
+    while retries < max_retries:
+        try:
+            structured_output = extraction_chain.invoke(prompt)['data']
+            # Extract and return the generated response
+            response_text = structured_output['statement_response']['response_text']
+            return response_text.strip()
+        except Exception as e:
+            print(f"Attempt {retries + 1} failed: {e}")
+            retries += 1
+
+    # If all retries fail, return a default error message
+    return "Unable to generate a response after multiple attempts."
+
+
+
+def query_llm_for_answer(llm, statement, max_retries=3):
+    """
+    Generates a dictionary containing a truth value and a concise response to either confirm or refute the given statement.
+    
+    Args:
+        llm: The language model instance.
+        statement (str): The input statement to evaluate.
+        max_retries (int): Number of retry attempts in case of errors (default is 3).
+    
+    Returns:
+        dict: A dictionary with 'truth_value' ('True' or 'False') and 'response' keys.
+    """
+    # Create the prompt
+    prompt = truth_statement_prompt_template.format(statement=statement)
+    
+    # Initialize the extraction chain with a predefined schema
+    extraction_chain = create_extraction_chain(
+        llm, 
+        truth_statement_schema,  
+        encoder_or_encoder_class="json"
+    )
+    
+    # Attempt extraction with retry mechanism
+    retries = 0
+    while retries < max_retries:
+        try:
+            structured_output = extraction_chain.invoke(prompt)['data']
+            # Extract the generated response
+            truth_value = structured_output['truth_statement']['truth_value']
+            response_text = structured_output['truth_statement']['response_text']
+            return {"truth_value": truth_value, "response": response_text.strip()}
+        except Exception as e:
+            print(f"Attempt {retries + 1} failed: {e}")
+            retries += 1
+    
+    # If all retries fail, return a default error message
+    return {"truth_value": "Not determined", "response": "Unable to determine the truth value after multiple attempts."}
+
+    
     
