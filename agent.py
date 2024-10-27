@@ -179,7 +179,7 @@ class Agent:
             current_sorce = self.env.sources.pop(0)
 
             
-            if current_sorce["cosine_similarity"] > 0.5:
+            if current_sorce["similarity"] > 0.5:
                 if current_sorce["true_information"]:
                     self.answer = "True"
                     self.explanation = current_sorce["reason"]
