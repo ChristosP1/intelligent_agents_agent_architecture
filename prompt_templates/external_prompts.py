@@ -101,3 +101,43 @@ truth_statement_schema = Object(
         Text(id="response_text", description="A short response sentence confirming or refuting the statement.")
     ]
 )
+
+
+##############################################################################################################
+##############################################################################################################
+
+
+scenario_explanation_template = ''' 
+Given the following scenario evaluation, produce a concise and natural explanation. The explanation should support the scenario's truth value without mentioning sources, separate statements, or technical details.
+
+Statements:
+{statements}
+
+Final Assessment: The scenario is {truth_value}.
+
+Generate a cohesive explanation based on the final assessment, using the statement evaluations to support the overall truth value in a single paragraph. The explanation should avoid listing individual statements or referencing the ontology.
+
+Example output:
+"The scenario is {truth_value}. There are indeed animals in the Amazon with humans in their diet, such as piranhas. However, swimming is not considered a non-contact sport, and the calories burned per hour are not consistently above 500."
+
+'''
+
+scenario_explanation_prompt_template = PromptTemplate(
+    input_variables=["statements", "truth_value"], 
+    template=scenario_explanation_template
+)
+
+
+scenario_explanation_schema = Object(
+    id="scenario_explanation",
+    description="A structured explanation for the truth value of the scenario based on statements provided.",
+    attributes=[
+        Text(id="truth_value", description="Boolean result of scenario truth."),
+        Text(id="explanation", description="Explanation based on statements.")
+    ],
+)
+
+
+
+
+

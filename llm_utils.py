@@ -17,7 +17,9 @@ from prompt_templates.internal_prompts import(synonyms_prompt_template,
 from prompt_templates.external_prompts import (statement_answer_prompt_template,
                                                statement_response_schema,
                                                truth_statement_prompt_template,
-                                               truth_statement_schema)
+                                               truth_statement_schema,
+                                               scenario_explanation_prompt_template,
+                                               scenario_explanation_schema)
 
 
 def initialize_llm():
@@ -238,4 +240,38 @@ def query_llm_for_answer(llm, statement, max_retries=3):
     return {"truth_value": "Not determined", "response": "Unable to determine the truth value after multiple attempts."}
 
     
+
+
+def generate_scenario_explanation(llm, statements: str, truth_value: str):
+    """
+    Generate an explanation for the scenario truth value based on statements.
     
+    Args:
+        llm (LLM): The language model to use for generation.
+        statements (str): A formatted string containing statements for the scenario.
+        truth_value (str): The evaluated truth value ("true" or "false") for the scenario.
+        
+    Returns:
+        dict: Contains truth_value and the generated explanation for the scenario.
+    """
+    # Format the prompt using the template
+    final_prompt = scenario_explanation_prompt_template.format(
+        statements=statements,
+        truth_value=truth_value
+    )
+    
+    # Set up the extraction chain
+    extraction_chain = create_extraction_chain(
+        llm,
+        scenario_explanation_schema,
+        encoder_or_encoder_class="json"
+    )
+
+    # Run the prompt through the extraction chain
+    structured_output = extraction_chain.invoke(final_prompt)['data']
+    
+    result = structured_output['scenario_explanation']['explanation']
+    
+    return result
+
+

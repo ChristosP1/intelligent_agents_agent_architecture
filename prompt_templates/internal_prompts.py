@@ -110,7 +110,7 @@ sparql_queries_template = '''
             ex:Salmon ex:hasNutrient ?nutrient . 
             FILTER(?nutrient = ex:VitaminB12)
         }}
-        
+        ```
     
     #### 5. Validating an Object Property Relationship Between Two Individuals
     - **Statement**: “Weightlifting trains bodypart Bicep.”
@@ -122,7 +122,7 @@ sparql_queries_template = '''
             ex:Weightlifting ex:trainsBodyPart ?bodyPart .
             FILTER(?bodyPart = ex:Bicep)
         }}
-        
+        ```
         
     #### 6. Retrieving Recipes with Specific Ingredients Including Subclasses
     - **Statement**: “There are recipes that have ingredient some frogsandtoads.”
@@ -135,7 +135,19 @@ sparql_queries_template = '''
                     ex:hasIngredient ?ingredient .
             ?ingredient a/rdfs:subClassOf* ex:FrogAndToad .
         }}
+        ```
     
+    #### 7.
+    - **Statement**: “There are recipes that have ingredient some frogsandtoads.”
+    - **SPARQL Query**:
+        ```sparql
+        PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#>
+        SELECT ?symptom
+        WHERE {{
+        ?symptom ex:isCausedBy ex:Concussion .
+        }}
+        ```
+        
 
     ### Examples of Class-Based Method
 
@@ -175,7 +187,7 @@ sparql_queries_template = '''
             ?birdInstance a/rdfs:subClassOf* ex:Bird .
             ?birdInstance a/rdfs:subClassOf* ex:Mammal .
         }}
-
+        ```
 
     #### 4. Property Filtering for Class Members with Data Properties
     - **Statement**: "There are frogs and toads that are not poisonous and are eaten by humans."

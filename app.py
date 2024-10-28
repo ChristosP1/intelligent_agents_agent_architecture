@@ -1,6 +1,7 @@
 import streamlit as st
 from agent import Agent, Env, Prompt  
 import time
+from llm_utils import generate_scenario_explanation
 
 
 def update_progress(progress_bar, progress_value, delay=0.3):
@@ -17,7 +18,6 @@ def update_progress(progress_bar, progress_value, delay=0.3):
 
 # Title and description
 st.title("Statement Validation")
-st.write("Enter a statement for the agent to evaluate it, or choose one from the dropdown below.")
 
 # Dropdown for pre-written statements
 statements = [
@@ -111,14 +111,27 @@ if st.button("Process", type='primary'):
         true_count = 0
         false_count = 0
         
+        ontology_sources = 0
+        reddit_sources = 0
+        openai_llm_sources = 0
+        
         st.markdown("## Results")
         for prompt, result in results.items():
             truthval = result['truthval']
             source = result['source']
+            
             if truthval == "True":
                 true_count += 1
             elif truthval == "False":
                 false_count += 1
+                
+            
+            if source == "Ontology":
+                ontology_sources += 1
+            elif source == "Reddit":
+                reddit_sources += 1
+            else:
+                openai_llm_sources += 1
             
             st.markdown(f"#### **Statement {i}:**")
             st.write(prompt)
@@ -128,11 +141,34 @@ if st.button("Process", type='primary'):
             st.write("---")
             i += 1
         
+        truth_percentage = true_count / len(scenario_statements)
+        if truth_percentage > 0.8:
+            overall_truth = "True"
+        elif truth_percentage > 0.5:
+            overall_truth = "Partially true"
+        else:
+            overall_truth = "False"
+            
+        
         # Display the count of True and False statements
         st.markdown("### Truth Value Counts:")
         st.write(f"**True Statements**: {true_count}")
         st.write(f"**False Statements**: {false_count}")
+        st.write(f"**Truth percentage**: {truth_percentage}")
         st.write(f"**Not Determined Statements**: {len(results) - true_count - false_count}")
+        st.write(f"**Sources**: Ontology ({ontology_sources}) || Reddit ({reddit_sources}) || OpenAI LLM ({openai_llm_sources})")
+        
+        st.write("--")
+        
+        # Format statements for the scenario explanation function
+        statements_text = "\n".join([f"{i+1}. {statement}: {results[statement]['answer']}" for i, statement in enumerate(scenario_statements)])
+        
+        # Call the scenario explanation function
+        explanation_result = generate_scenario_explanation(agent.llm, statements_text, overall_truth)
+
+        # Display the final scenario explanation
+        st.markdown("## Final Scenario Explanation")
+        st.write(explanation_result)
 
 
         # Complete the progress bar
