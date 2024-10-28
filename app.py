@@ -51,19 +51,19 @@ if selected_scenario == scenarios[0]:
     st.write(scenario_statements)
 elif selected_scenario == scenarios[1]:
     st.markdown("#### Description:")
-    st.write(scenario_description["injury_of_dehydration"])
+    st.write(scenario_description["frog_based_recipes"])
     scenario_statements = statements[4:7] 
     st.markdown("#### Scenario statements:")
     st.write(scenario_statements)
 elif selected_scenario == scenarios[2]:
     st.markdown("#### Description:")
-    st.write(scenario_description["injury_of_dehydration"])
+    st.write(scenario_description["shark_attack"])
     scenario_statements = statements[7:9]
     st.markdown("#### Scenario statements:")
     st.write(scenario_statements) 
 elif selected_scenario == scenarios[3]:
     st.markdown("#### Description:")
-    st.write(scenario_description["injury_of_dehydration"])
+    st.write(scenario_description["safe_swimming"])
     scenario_statements = statements[9:]
     st.markdown("#### Scenario statements:")
     st.write(scenario_statements) 
