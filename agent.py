@@ -106,7 +106,7 @@ class Agent:
         self.results: Dict = {}
 
         # ----------------------------- #
-        #self.reasoner = Reasoner(self.llm)
+        self.reasoner = Reasoner(self.llm) # when this line is not commented out, a LLM may summarize explanations
 
         self.answer_origin = None
         
