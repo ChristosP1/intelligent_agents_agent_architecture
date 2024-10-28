@@ -5,3 +5,7 @@
 3. Edit the scenario/query configs in `app.py` if desired
 4. With `streamlit` installed, run `streamlit run app.py` in terminal, navigate to browser
 5. Select a scenario and click `process` to make the agent evaluate all the queries in the scenario.
+
+## Pre-recorded Demonstration
+
+https://www.youtube.com/watch?v=RHtxQh0j5kc
