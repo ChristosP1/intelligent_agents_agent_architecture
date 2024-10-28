@@ -80,7 +80,7 @@ class Agent:
     # TODO: Massive work in progress, needs more logic.
     def __init__(self, env: Env):
         self.llm = initialize_llm()
-        ontology_path = os.getcwd() + "\\ontology3.owl"
+        ontology_path = os.path.join(os.getcwd(), "ontology3.owl")
         self.owl_interface = OWLInterface(ontology_path)
         
         self.reddit_api = RedditAPI()
