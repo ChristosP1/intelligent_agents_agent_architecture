@@ -1,5 +1,19 @@
 import streamlit as st
 from agent import Agent, Env, Prompt  
+import time
+
+
+def update_progress(progress_bar, progress_value, delay=0.3):
+    """
+    Update the progress bar and yield control back to Streamlit.
+    :param progress_bar: The progress bar component created with st.progress.
+    :param progress_value: The progress value to set.
+    :param delay: Time to sleep to simulate yielding control.
+    """
+    if progress_bar:
+        progress_bar.progress(progress_value)  # Use progress() method to update progress bar
+        time.sleep(delay)  # Yield control to Streamlit to refresh UI
+        
 
 # Title and description
 st.title("Statement Validation")
@@ -12,12 +26,12 @@ statements = [
     "Find injury that has symptom headache and it is true that we should visitdoctor.",
     "Find symptoms that are caused by concussion.",
     "There are frogsandtoads that it is false that they are poisonous and are eatenby humans.",
-    "Some nutricients are present in frogsandtoads",
-    "There are recipes that have ingredient some frogsandtoads",
+    "Some nutricients are present in frogsandtoads.",
+    "There are recipes that have ingredient some frogsandtoads.",
     "There is some location that has animal shark and has sport volleyball.",
-    "Is there some vegetarian dish that has an ingredient that is Animal Seafood or Meat and is eaten by sharks",
+    "Is there some vegetarian dish that has an ingredient that is Animal Seafood or Meat and is eaten by sharks.",
     "There are animals that are locatedin Amazon and have diet humans.",
-    "Swimming is repetitivenoncontact sport and the caloriesburnedperhour are more than 500",
+    "Swimming is repetitivenoncontact sport and the caloriesburnedperhour are more than 500.",
 ]
 
 # Dropdown and text input
@@ -48,25 +62,29 @@ if selected_scenario == scenarios[0]:
     st.write(scenario_description["injury_of_dehydration"])
     scenario_statements = statements[:4] 
     st.markdown("#### Scenario statements:")
-    st.write(scenario_statements)
+    for i, statement in enumerate(scenario_statements):
+        st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[1]:
     st.markdown("#### Description:")
     st.write(scenario_description["frog_based_recipes"])
     scenario_statements = statements[4:7] 
     st.markdown("#### Scenario statements:")
-    st.write(scenario_statements)
+    for i, statement in enumerate(scenario_statements):
+        st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[2]:
     st.markdown("#### Description:")
     st.write(scenario_description["shark_attack"])
     scenario_statements = statements[7:9]
     st.markdown("#### Scenario statements:")
-    st.write(scenario_statements) 
+    for i, statement in enumerate(scenario_statements):
+        st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[3]:
     st.markdown("#### Description:")
     st.write(scenario_description["safe_swimming"])
     scenario_statements = statements[9:]
     st.markdown("#### Scenario statements:")
-    st.write(scenario_statements) 
+    for i, statement in enumerate(scenario_statements):
+        st.write(F"{i+1}. {statement}") 
 
 
 # Determine the scenario to process
@@ -76,50 +94,49 @@ if selected_scenario != "Select":
     
 # Button to process the statement(s)
 if st.button("Process", type='primary'):
+    progress_bar = st.progress(0)
     env = Env()
     agent = Agent(env)
     
+    # Initialize a placeholder for the progress bar
+    progress_value = 5  # Starting point of the progress bar
+    update_progress(progress_bar, progress_value)
+    
     if selected_scenario != "Select":
         # Process statements relevant to the selected scenario
-        results = agent.process_multiple_prompts(scenario_statements)
-        # st.write(results)
-        
-        for statement in scenario_statements:
-            agent.env.set_prompt(Prompt(statement))
-            while agent.state < 5:
-                agent.perceive()
-                agent.reason()
+        results = agent.process_multiple_prompts(scenario_statements, progress_bar, progress_value)
         
         # Display the results for each statement
         i = 1
         true_count = 0
         false_count = 0
         
-        st.markdown("### Results Summary:")
+        st.markdown("## Results:")
         for prompt, result in results.items():
             truthval = result['truthval']
+            source = result['source']
             if truthval == "True":
                 true_count += 1
             elif truthval == "False":
                 false_count += 1
             
-            st.write(f"**Prompt**: {prompt}")
-            st.write(f"Truth Value: {truthval}")
-            st.write(f"Answer: {result['answer']}")
+            st.markdown(f"- **Statement {i}:** {prompt}")
+            st.write(f"**Truth Value:** {truthval}")
+            st.write(f"**Source:** {source}")
+            st.write(f"**Answer:** {result['answer']}")
             st.write("---")
+            i += 1
         
         # Display the count of True and False statements
         st.markdown("### Truth Value Counts:")
         st.write(f"**True Statements**: {true_count}")
         st.write(f"**False Statements**: {false_count}")
         st.write(f"**Not Determined Statements**: {len(results) - true_count - false_count}")
-            
-    
-    # agent.perceive()
-    # agent.reason()
-    
-    # agent.perceive()
-    # agent.reason()
 
+
+        # Complete the progress bar
+        update_progress(progress_bar, 100)
+        time.sleep(1)
+        progress_bar.empty()
 
 

@@ -104,6 +104,7 @@ class Agent:
         # ---------- State 2 ---------- #
         self.outcome = list()
         self.results: Dict = {}
+        self.answer_source = None
 
         # ----------------------------- #
         self.reasoner = Reasoner(self.llm) # when this line is not commented out, a LLM may summarize explanations
@@ -125,31 +126,46 @@ class Agent:
         self.explanation = ""
         
         
-    def process_multiple_prompts(self, prompts: List[str]) -> Dict[str, dict]:
+    def process_multiple_prompts(self, prompts: List[str], progress_bar, progress_value) -> Dict[str, dict]:
+        progress_increment = 80 // len(prompts)  # Adjust progress increment based on total prompts
+        
         for prompt_text in prompts:
-            # Set the prompt text and process as usual
+            print("-"*400)
+            self.results[prompt_text] = {
+                "prompt_text": None,
+                "source": None,
+                "query": None,
+                "outcome": None,
+                "truthval": None,
+                "answer": None,
+            }
+            self.truthval = None
+            self.answer = None
+            self.answer_source = None
+            
+            progress_value += progress_increment
+            progress_bar.progress(progress_value)
+
+            # Set the prompt text and initialize processing for the statement
             self.prompt = Prompt(prompt_text)
             self.state = 1  # Reset to state 1 for each prompt
             
-            # Process State 1
-            self.perceive()
-            self.reason()  # Runs the ontology reduction and SPARQL generation
-            
-            # Process State 2 (query ontology)
-            self.perceive()
-            self.reason()  # Queries the ontology
+            while self.state < 5:
+                self.perceive()
+                self.reason()
             
             # Save the results for this prompt
             self.results[prompt_text] = {
                 "prompt_text": prompt_text,
-                "source": "ontology",
+                "source": self.answer_source,
                 "query": self.sparql_queries,
                 "outcome": self.outcome,
                 "truthval": self.truthval if self.truthval is not None else "Not determined",
                 "answer": self.answer if self.answer else "No answer",
             }
-                    
+                        
         return self.results
+
     
     
     def ontology_source_utility(self, source: Source) -> float:
@@ -158,7 +174,6 @@ class Agent:
     def perceive(self):
         if self.state == 1:  # We are looking for a prompt -> Get a prompt from an user in the env.
             if self.env.prompt is not None:
-                print("Set prompt")
                 self.prompt = self.env.prompt
         elif self.state == 3:  # We are looking for external sources -> Get a external source from the env.
             if self.truthval in ["Not determined", None] and not self.enV_get:
@@ -177,16 +192,16 @@ class Agent:
             self.tokenized_prompt, self.pos_tags = preprocess_text(self.prompt.text)  # Use .text here
             self.tokenized_prompt_with_synonyms = generate_synonyms(self.llm, self.pos_tags, 2)
 
-            print(f"- Ontology elements components {self.ontology_elements.keys()}")
-            print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
-            print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
-            print(f"- Data Properties: {len(self.ontology_elements['data_property_domain_range'])}")
+            # print(f"- Ontology elements components {self.ontology_elements.keys()}")
+            # print(f"- Classes: {len(self.ontology_elements['class_subclasses'])}")
+            # print(f"- Object Properties: {len(self.ontology_elements['object_property_domain_range'])}")
+            # print(f"- Data Properties: {len(self.ontology_elements['data_property_domain_range'])}")
             
             self.ontology_filtered = find_relevant_ontology_items(self.tokenized_prompt, self.pos_tags, self.ontology_elements, self.ontology_embeddings)
             
-            print(f"- Filtered Classes: {len(self.ontology_filtered['filtered_classes'])} \n {self.ontology_filtered['filtered_classes'].keys()}")
-            print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
-            print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
+            # print(f"- Filtered Classes: {len(self.ontology_filtered['filtered_classes'])} \n {self.ontology_filtered['filtered_classes'].keys()}")
+            # print(f"- Filtered Object Properties: {len(self.ontology_filtered['filtered_obj_properties'])} \n {self.ontology_filtered['filtered_obj_properties'].keys()}")
+            # print(f"- Filtered Data Properties: {len(self.ontology_filtered['filtered_data_properties'])} \n {self.ontology_filtered['filtered_data_properties'].keys()}")
             
             self.sparql_queries = generate_sparql_queries(self.llm, self.prompt.text, self.ontology_filtered, self.prefix)
             
@@ -205,23 +220,28 @@ class Agent:
                 self.outcome = self.owl_interface.query_ontology(self.sparql_queries) # TODO: Query the ontology.
                 # print(self.outcome)
                 if self.outcome:
+                    print("##### OUTCOME", self.outcome)
                     self.truthval = self.outcome[0][0]
+                    self.answer_source = "Ontology"
+                    self.results[str(self.prompt.text)]['source'] = self.answer_source
+                    self.results[str(self.prompt.text)]['truthval'] = self.truthval
                 # except:
                 #     self.truthval = 'not found'
-                if self.reasoner is not None and self.outcome:
-                    self.answer = "\n".join([self.reasoner.reason_ontology(self.sparql_queries[i], self.truthval, self.outcome[i][1] if len(self.outcome[i]) > 1 else []) for i in range(0, len(self.sparql_queries))])
-                else:
-                    self.answer = generate_statement_answer(self.llm, self.prompt.text, self.truthval)
-                self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
+                    if self.reasoner is not None and self.outcome:
+                        self.answer = "\n".join([self.reasoner.reason_ontology(self.sparql_queries[i], self.truthval, self.outcome[i][1] if len(self.outcome[i]) > 1 else []) for i in range(0, len(self.sparql_queries))])
+                    else:
+                        self.answer = generate_statement_answer(self.llm, self.prompt.text, self.truthval)
+                    self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
+                    self.results[str(self.prompt.text)]['answer'] = self.answer
                 self.state = 3
         
         # ------------------------------------------ State 3 ------------------------------------------#
         # If the statement wasn't found in the ontology then search it on reddit
         
         elif self.state == 3:  # We are currently querying external sources and have obtained one (hopefully)
-            print("Lets query Reddit")
-        
+            print(f"!!!!!!!!!!!!!!!!!!!!!!! {self.truthval} !!!!!!!!!!!!!!!!!!!!!!!")
             if self.truthval in ["Not determined", None] and self.env.sources:
+                print("@@@@@@@@@@@@@@@@@@@@@@@@ Lets query Reddit @@@@@@@@@@@@@@@@@@@@@@@@")
                 current_source = self.env.sources.pop(0)
                 if "similarity" in current_source:
                     similarity = current_source["similarity"]
@@ -231,12 +251,14 @@ class Agent:
                     if similarity > 0.5:
                         print(f"Found Reddit information with similarity {similarity}")
                         self.truthval = "True" if real_info else "False"
+                        self.answer = current_source["reason"]
                         self.answer = reason
                         if self.reasoner is not None:
                             self.answer = self.reasoner.reason(self.prompt.text, current_source)
-                        self.results[self.prompt.text]['truthval'] = self.truthval
-                        self.results[self.prompt.text]['source'] = "Reddit"
-                        self.results[self.prompt.text]['answer'] = self.answer
+                        self.results[str(self.prompt.text)]['truthval'] = self.truthval
+                        self.answer_source = "Reddit"
+                        self.results[str(self.prompt.text)]['source'] = self.answer_source
+                        self.results[str(self.prompt.text)]['answer'] = self.answer
                     else:
                         print(f"No reliable information from Reddit (similarity: {similarity})")
                 else:
@@ -246,7 +268,6 @@ class Agent:
             else:
                 print("Problem")
             
-            print("####################################")
             # Log the final outcome
             print("Final Statement:", self.prompt.text)
             print("Truth Value:", self.truthval)
@@ -257,9 +278,11 @@ class Agent:
         # ------------------------------------------ State 4 ------------------------------------------#
         # If the statement wasn't found on reddit then search in with openai
                 
-        elif self.state == 4:  
+        elif self.state == 4: 
+            print(f"!!!!!!!!!!!!!!!!!!!!!!! {self.truthval} !!!!!!!!!!!!!!!!!!!!!!!") 
             if self.truthval == 'Not determined' or self.truthval == None:
-                print("Querying OpenAI LLM as a fallback.")
+                print(self.truthval)
+                print(" @@@@@@@@@@@@@@@@@@@@@@@@ Querying OpenAI LLM as a fallback. @@@@@@@@@@@@@@@@@@@@@@@@")
                 # Call the function that performs the LLM query
                 llm_response = query_llm_for_answer(self.llm, self.prompt.text)
                 print(llm_response)
@@ -267,13 +290,15 @@ class Agent:
                 if llm_response:
                     self.truthval = llm_response['truth_value']
                     self.answer = llm_response["response"]
-                    self.results[self.prompt.text]['truthval'] = self.truthval
-                    self.results[self.prompt.text]['source'] = "OpenAI"
-                    self.results[self.prompt.text]['answer'] = self.answer
+                    self.results[str(self.prompt.text)]['truthval'] = self.truthval
+                    self.answer_source = "OpenAI LLM"
+                    self.results[str(self.prompt.text)]['source'] = self.answer_source
+                    self.results[str(self.prompt.text)]['answer'] = self.answer
                 
                 print("Statement", self.prompt.text)
                 print("Truth value", self.truthval)
                 print("Answer", self.answer)
+                print("Source", self.answer_source)
             
             self.state = 5
         # ------------------------------------------ State 5 ------------------------------------------#

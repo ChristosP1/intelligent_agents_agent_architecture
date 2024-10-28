@@ -1,8 +1,12 @@
+import time
 
 class Reasoner:
-    def __init__(self, llm = None):
+    def __init__(self, llm = None, delay=1):
         self.llm = llm
+        self.delay = delay
+        
     def reason(self, statement, evaluation):
+        time.sleep(self.delay)
         reason = evaluation["reason"]
         if reason is None:
             return "I could not find any information to confirm or falsify this statement."
@@ -62,6 +66,7 @@ class Reasoner:
         return f"{prefix}, because {self.llm.invoke(prompt).content}"
     
     def reason_ontology(self, query, truth_value, examples):
+        time.sleep(self.delay)
         prompt = f'''
             You are an expert at SPARQL query deconstruction.
             Your goal is to generate a natural explanation from a SPARQL query and its result.

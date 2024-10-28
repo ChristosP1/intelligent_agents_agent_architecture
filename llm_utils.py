@@ -85,7 +85,7 @@ def generate_synonyms(llm, pos_tagged_words, synonyms_num=3):
                     
 
   
-    print(f"List with synonyms: {output_list}")
+    # print(f"List with synonyms: {output_list}")
     return output_list
 
 

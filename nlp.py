@@ -83,7 +83,6 @@ def pos_tagging(words):
         word_tokens = words
         
     pos_tags = nltk.pos_tag(word_tokens)
-    print(pos_tags)
     
     return pos_tags
 
