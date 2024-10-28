@@ -208,7 +208,10 @@ class Agent:
                     self.truthval = self.outcome[0][0]
                 # except:
                 #     self.truthval = 'not found'
-                self.answer = generate_statement_answer(self.llm, self.prompt.text, self.truthval)
+                if self.reasoner is not None:
+                    self.answer = "\n".join([self.reasoner.reason_ontology(self.sparql_queries[i], self.truthval, self.outcome[i][1] if len(self.outcome[i]) > 1 else []) for i in range(0, len(self.sparql_queries))])
+                else:
+                    self.answer = generate_statement_answer(self.llm, self.prompt.text, self.truthval)
                 self.explanation = None  # TODO: Store the DL query raw explanation from the ontology.
                 self.state = 3
         

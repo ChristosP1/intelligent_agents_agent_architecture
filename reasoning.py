@@ -1,5 +1,4 @@
 
-
 class Reasoner:
     def __init__(self, llm = None):
         self.llm = llm
@@ -61,3 +60,72 @@ class Reasoner:
         # https://en.wikipedia.org/wiki/Python_(programming_language)
 
         return f"{prefix}, because {self.llm.invoke(prompt).content}"
+    
+    def reason_ontology(self, query, truth_value, examples):
+        prompt = f'''
+            You are an expert at SPARQL query deconstruction.
+            Your goal is to generate a natural explanation from a SPARQL query and its result.
+            
+            Your input is a JSON object consisting of 3 fields.
+            The first field "query" is a string representing a SPARQL query.
+            The second field "truth_value" is a boolean that indicates whether the query specified in the "query" field was evaluated to be true.
+            The third field "examples" is a possibly empty list of examples that make the query true or false as specified by the "truth_value" field.
+            
+            ### Examples
+            #### 1.
+            - Input:
+            ```
+            {{
+                "query": "PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#> SELECT ?isVenomous WHERE {{ ex:Gecko ex:isVenomous ?isVenomous . }}",
+                "truth_value": false,
+                "examples": []
+            }}
+            ```
+            - Output:
+            "Geckos are not venomous."
+
+            #### 2.
+            - Input:
+            ```
+            {{
+                "query": "PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#> SELECT ?recipe WHERE {{ ?recipe a ex:Recipe ; ex:hasIngredient ?ingredient . ?ingredient a/rdfs:subClassOf* ex:FrogAndToad . }}",
+                "truth_value": true,
+                "examples": ["FrogRisotto", "FriedFrogLegs"]
+            }}
+            ```
+            - Output:
+            "The recipes for frog risotto and fried frog legs contain frogs or toads."
+
+            #### 3.
+            ```
+            {{
+                "query": "PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#> SELECT ?nutrient WHERE {{ ?nutrient ex:isPresentIn ?frogAndToad . ?frogAndToad a/rdfs:subClassOf* ex:FrogAndToad . }}",
+                "truth_value": true,
+                "examples": ["SaturatedFat"]
+            }}
+            ```
+            - Output:
+            "Nutrients such as saturated fat are present in frogs and toads."
+
+            #### 4.
+            ```
+            {{
+                "query": "PREFIX ex: <http://www.semanticweb.org/chris/ontologies/2024/8/intelligent_agents_ontology#> SELECT ?dessert WHERE {{ ?dessert a/rdfs:subClassOf* ex:Dessert ; ex:hasIngredient ex:Shark . }}",
+                "truth_value": false,
+                "examples": []
+            }}
+            ```
+            - Output:
+            "There are no desserts that contain shark."
+
+            Now, generate an exmplanation for the following JSON:
+            ```
+            {{
+                "query": "{query}",
+                "truth_value": {truth_value},
+                "examples": {examples}
+            }}
+            ```
+        '''
+
+        return self.llm.invoke(prompt).content
