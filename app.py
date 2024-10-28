@@ -23,7 +23,7 @@ st.write("Enter a statement for the agent to evaluate it, or choose one from the
 statements = [
     "Dehydration has symptom headache and it is true that we should visitdoctor.",
     "Find injury that is caused by football and has symptom headache.",
-    "Find injury that has symptom headache and it is true that we should visitdoctor.",
+    "Find injury that has symptom headache and it is true that we should visit doctor.",
     "Find symptoms that are caused by concussion.",
     "There are frogsandtoads that it is false that they are poisonous and are eatenby humans.",
     "Some nutricients are present in frogsandtoads.",
@@ -58,28 +58,28 @@ scenario_description = {
 }
 
 if selected_scenario == scenarios[0]:
-    st.markdown("#### Description:")
+    st.markdown("#### Description")
     st.write(scenario_description["injury_of_dehydration"])
     scenario_statements = statements[:4] 
     st.markdown("#### Scenario statements:")
     for i, statement in enumerate(scenario_statements):
         st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[1]:
-    st.markdown("#### Description:")
+    st.markdown("#### Description")
     st.write(scenario_description["frog_based_recipes"])
     scenario_statements = statements[4:7] 
     st.markdown("#### Scenario statements:")
     for i, statement in enumerate(scenario_statements):
         st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[2]:
-    st.markdown("#### Description:")
+    st.markdown("#### Description")
     st.write(scenario_description["shark_attack"])
     scenario_statements = statements[7:9]
     st.markdown("#### Scenario statements:")
     for i, statement in enumerate(scenario_statements):
         st.write(F"{i+1}. {statement}")
 elif selected_scenario == scenarios[3]:
-    st.markdown("#### Description:")
+    st.markdown("#### Description")
     st.write(scenario_description["safe_swimming"])
     scenario_statements = statements[9:]
     st.markdown("#### Scenario statements:")
@@ -111,7 +111,7 @@ if st.button("Process", type='primary'):
         true_count = 0
         false_count = 0
         
-        st.markdown("## Results:")
+        st.markdown("## Results")
         for prompt, result in results.items():
             truthval = result['truthval']
             source = result['source']
@@ -120,10 +120,11 @@ if st.button("Process", type='primary'):
             elif truthval == "False":
                 false_count += 1
             
-            st.markdown(f"- **Statement {i}:** {prompt}")
-            st.write(f"**Truth Value:** {truthval}")
-            st.write(f"**Source:** {source}")
-            st.write(f"**Answer:** {result['answer']}")
+            st.markdown(f"#### **Statement {i}:**")
+            st.write(prompt)
+            st.markdown(f"- **Truth Value:** {truthval}")
+            st.markdown(f"- **Source:** {source}")
+            st.markdown(f"- **Answer:** {result['answer']}")
             st.write("---")
             i += 1
         

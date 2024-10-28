@@ -65,8 +65,9 @@ truth_statement_template = '''
     - A **response** sentence that briefly confirms or refutes the statement based on the truth value.
 
     **Instructions**:
-    - If the statement is correct, return "True" as the truth value and a supportive sentence.
-    - If the statement is incorrect, return "False" as the truth value and a sentence that refutes the statement.
+    - Don't pay attention to grammatical or syntactical mistakes.
+    - If the content of the statement is correct, return "True" as the truth value and a supportive sentence.
+    - If the content of the statement is incorrect, return "False" as the truth value and a sentence that refutes the statement.
 
     ### Example Format
 
